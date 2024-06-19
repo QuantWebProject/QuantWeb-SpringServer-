@@ -1,7 +1,7 @@
 ---
 name: 'Issue : Bug'
 about: 어떤 버그인지 설명해주세요
-title: "[BUG]"
+title: "Bug:"
 labels: bug
 assignees: ''
 

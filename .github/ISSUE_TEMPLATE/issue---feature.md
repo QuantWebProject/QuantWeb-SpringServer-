@@ -1,7 +1,7 @@
 ---
 name: 'Issue : Feature'
 about: 'feature 작업 상황에 대해 설명해주세요 '
-title: "[FEATURE]"
+title: "Feature:"
 labels: feature
 assignees: ''
 
