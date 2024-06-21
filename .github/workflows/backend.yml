@@ -25,6 +25,12 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Set PROP
+        run: |
+          mkdir -p src/main/resources
+          echo "${{ secrets.APPLICATION_PROP }}" | base64 --decode > src/main/resources/application.properties
+          find src
+
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
@@ -62,10 +68,6 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
-      - name: Install SonarScanner
-        run: |
-          wget -q -O - https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip | bsdtar -xvf- -C /tmp
-          export PATH=$PATH:/tmp/sonar-scanner-4.6.2.2472-linux/bin
 
       - name: Build and analyze
         env:
