@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.6'
 	id 'io.spring.dependency-management' version '1.1.5'
+	id "org.sonarqube" version "5.0.0.4638"
 }
 
 group = 'com.quantweb'
@@ -19,6 +20,13 @@ configurations {
 
 repositories {
 	mavenCentral()
+}
+
+sonar {
+	properties {
+		property "sonar.projectKey", "QuantWebProject_QuantWeb-SpringServer-_808fe676-f82b-4d35-8cc6-f24c45f17f31"
+		property "sonar.projectName", "QuantWeb-SpringServer-"
+	}
 }
 
 dependencies {
