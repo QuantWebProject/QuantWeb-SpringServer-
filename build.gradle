@@ -24,10 +24,7 @@ repositories {
 
 sonar {
 	properties {
-		property "sonar.projectKey", "QuantWebProject_QuantWeb-SpringServer-_808fe676-f82b-4d35-8cc6-f24c45f17f31"
-		property "sonar.projectName", "QuantWeb-SpringServer-"
 		property "sonar.host.url", "http://ec2-43-203-226-174.ap-northeast-2.compute.amazonaws.com:9000"
-		property "sonar.login", System.getenv("SONAR_TOKEN")
 	}
 }
 
