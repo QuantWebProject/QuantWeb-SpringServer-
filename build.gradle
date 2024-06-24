@@ -14,8 +14,8 @@ java {
 }
 
 checkstyle {
-    toolVersion = '8.42'
-    config = resources.text.fromFile('config/checkstyle/google_checks.xml')
+    toolVersion('8.42')
+    configFile file('${project.rootDir}/config/checkstyle.xml')
 }
 
 tasks.withType(Checkstyle) {
