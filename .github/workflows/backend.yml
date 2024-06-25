@@ -35,7 +35,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build by checkstyle(check convention)
-        run: ./gradlew clean checkstyleMain --stacktrace 
+        run: ./gradlew clean checkstyleMain --stacktrace --info
 
   sonarqube:
     needs: build
