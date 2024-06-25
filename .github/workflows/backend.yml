@@ -37,6 +37,9 @@ jobs:
       - name: Build
         run: ./gradlew build
 
+      - name: Build by checkstyle(check convention)
+        run: ./gradlew checkstyleMain
+
   sonarqube:
     needs: build
     runs-on: ubuntu-latest
@@ -67,7 +70,6 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
-
 
       - name: Build and analyze
         env:
