@@ -34,8 +34,11 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build by checkstyle(check convention)
-        run: ./gradlew clean checkstyleMain --stacktrace --info
+      - name: Run Spotless Check
+        run: ./gradlew spotlessCheck
+
+      - name: Build with Gradle
+        run: ./gradlew build
 
   sonarqube:
     needs: build
