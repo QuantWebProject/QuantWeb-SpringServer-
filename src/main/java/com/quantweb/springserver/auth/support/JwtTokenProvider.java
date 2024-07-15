@@ -67,6 +67,7 @@ public class JwtTokenProvider {
 
   private Jws<Claims> getClaims(String token) {
     int clockSkewSeconds = 3 * 60;
-    return Jwts.parser().clockSkewSeconds(clockSkewSeconds).verifyWith(key).build().parseSignedClaims(token);
+    return Jwts.parser().clockSkewSeconds(clockSkewSeconds).verifyWith(key).build()
+        .parseSignedClaims(token);
   }
 }
