@@ -1,5 +1,7 @@
 package com.quantweb.springserver.auth.config;
 
+import com.quantweb.springserver.auth.support.CookieExtractor;
+import com.quantweb.springserver.auth.support.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
@@ -7,8 +9,6 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import com.quantweb.springserver.auth.support.CookieExtractor;
-import com.quantweb.springserver.auth.support.JwtTokenProvider;
 
 @RequiredArgsConstructor
 public class TokenResolver implements HandlerMethodArgumentResolver {

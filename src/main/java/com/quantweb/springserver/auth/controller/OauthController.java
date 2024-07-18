@@ -1,5 +1,12 @@
 package com.quantweb.springserver.auth.controller;
 
+import com.quantweb.springserver.auth.config.Authenticated;
+import com.quantweb.springserver.auth.config.AuthenticationPrincipal;
+import com.quantweb.springserver.auth.config.AuthenticationRefreshPrincipal;
+import com.quantweb.springserver.auth.service.OauthService;
+import com.quantweb.springserver.auth.service.dto.response.AccessTokenResponse;
+import com.quantweb.springserver.auth.service.dto.response.LoginResponse;
+import com.quantweb.springserver.auth.service.dto.response.OauthLinkResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -8,13 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.quantweb.springserver.auth.config.Authenticated;
-import com.quantweb.springserver.auth.config.AuthenticationPrincipal;
-import com.quantweb.springserver.auth.config.AuthenticationRefreshPrincipal;
-import com.quantweb.springserver.auth.service.OauthService;
-import com.quantweb.springserver.auth.service.dto.response.AccessTokenResponse;
-import com.quantweb.springserver.auth.service.dto.response.LoginResponse;
-import com.quantweb.springserver.auth.service.dto.response.OauthLinkResponse;
 
 
 @RequiredArgsConstructor
@@ -50,12 +50,19 @@ public class OauthController {
     return ResponseEntity.ok().build();
   }
 
-
   @PostMapping("/token/refresh")
   public ResponseEntity<Void> reissueAccessToken(HttpServletResponse response,
       @AuthenticationRefreshPrincipal Long memberId) {
     AccessTokenResponse accessToken = oauthService.reissueAccessToken(memberId);
     response.addCookie(accessToken.getAccessToken());
+
+    return ResponseEntity.ok().build();
+  }
+
+  @GetMapping("/sync")
+  public ResponseEntity<Void> syncLogin(@AuthenticationPrincipal Long memberId,
+      @RequestParam String type, @RequestParam String code, @RequestParam String redirectUrl) {
+    oauthService.syncLogin(memberId, type, code, redirectUrl);
 
     return ResponseEntity.ok().build();
   }

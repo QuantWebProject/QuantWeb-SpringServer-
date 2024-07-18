@@ -2,6 +2,7 @@ package com.quantweb.springserver.auth.support.kakao.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.HashMap;
 import lombok.Getter;
@@ -14,7 +15,7 @@ public class KakaoUserResponse {
 
   //회원 번호
   @JsonProperty("id")
-  public Long id;
+  public BigInteger id;
 
   //자동 연결 설정을 비활성화한 경우만 존재.
   //true : 연결 상태, false : 연결 대기 상태
@@ -93,7 +94,6 @@ public class KakaoUserResponse {
     public Boolean isAgeAgree;
 
     //연령대
-    //참고 https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api#req-user-info
     @JsonProperty("age_range")
     public String ageRange;
 

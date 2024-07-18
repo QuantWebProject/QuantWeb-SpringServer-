@@ -1,5 +1,7 @@
 package com.quantweb.springserver.auth.support.google;
 
+import com.quantweb.springserver.auth.support.google.dto.GoogleTokenResponse;
+import com.quantweb.springserver.auth.support.google.dto.GoogleUserResponse;
 import java.util.Collections;
 import java.util.Optional;
 import lombok.Getter;
@@ -13,8 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import com.quantweb.springserver.auth.support.google.dto.GoogleTokenResponse;
-import com.quantweb.springserver.auth.support.google.dto.GoogleUserResponse;
 
 @Getter
 @RequiredArgsConstructor

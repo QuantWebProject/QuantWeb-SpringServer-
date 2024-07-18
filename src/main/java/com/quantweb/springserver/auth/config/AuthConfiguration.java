@@ -1,5 +1,7 @@
 package com.quantweb.springserver.auth.config;
 
+import com.quantweb.springserver.auth.entity.TokenRepository;
+import com.quantweb.springserver.auth.support.JwtTokenProvider;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -8,8 +10,6 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import com.quantweb.springserver.auth.entity.TokenRepository;
-import com.quantweb.springserver.auth.support.JwtTokenProvider;
 
 @RequiredArgsConstructor
 @Configuration
@@ -40,8 +40,10 @@ public class AuthConfiguration implements WebMvcConfigurer {
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
+    final String LOCAL_URL = "http://localhost:3000";
+
     registry.addMapping("/*")
-        .allowedOrigins("http://localhost:3000")
+        .allowedOrigins(LOCAL_URL)
         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
         .allowedHeaders("")
         .allowCredentials(true);
