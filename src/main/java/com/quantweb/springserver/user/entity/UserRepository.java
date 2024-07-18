@@ -6,10 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-  Optional<User> findByNickname(String nickname);
+  @Query("SELECT u FROM User u  join fetch u.oauthList o " +
+      "WHERE o.uid = :oauthId")
+  Optional<User> findByOauthId(String oauthId);
 
-  Optional<User> findByEmail(String email);
-
-  @Query("SELECT u FROM User u JOIN FETCH u.userImage WHERE u.id = :userId")
-  User findByUserId(Long userId);
+  Optional<User> findById(Long Id);
 }

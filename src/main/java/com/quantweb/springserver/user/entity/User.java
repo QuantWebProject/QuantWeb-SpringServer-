@@ -1,14 +1,25 @@
 package com.quantweb.springserver.user.entity;
 
-import com.quantweb.springserver.user_image.entity.UserImage;
-import jakarta.persistence.*;
+import com.quantweb.springserver.user.user_status.UserStatus;
+import com.quantweb.springserver.user.user_status.UserStatusConverter;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.quantweb.springserver.user.user_status.UserStatus;
-import com.quantweb.springserver.user.user_status.UserStatusConverter;
 
 @Entity
 @Getter
@@ -17,7 +28,6 @@ import com.quantweb.springserver.user.user_status.UserStatusConverter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-
   @Id
   @Column(name = "user_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +37,8 @@ public class User {
   @Convert(converter = UserStatusConverter.class)
   private UserStatus userStatus;
 
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Oauth> oauthList = new ArrayList<>();
 
   @Column(name = "user_nickname")
   private String nickname;
@@ -36,9 +48,6 @@ public class User {
 
   @Column(name = "user_email")
   private String email;
-
-  @Column(name = "user_phone_number")
-  private String phoneNumber;
 
   @Column(name = "is_admin")
   private Boolean isAdmin;
@@ -51,4 +60,8 @@ public class User {
 
   @Column(name = "user_deleted_at")
   private LocalDateTime deletedAt;
+
+  public void updateLatestLoginAt(LocalDateTime now) {
+    this.latestLoginAt = now;
+  }
 }

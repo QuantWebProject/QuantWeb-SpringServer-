@@ -50,12 +50,18 @@ public class OauthController {
     return ResponseEntity.ok().build();
   }
 
-
   @PostMapping("/token/refresh")
   public ResponseEntity<Void> reissueAccessToken(HttpServletResponse response,
       @AuthenticationRefreshPrincipal Long memberId) {
     AccessTokenResponse accessToken = oauthService.reissueAccessToken(memberId);
     response.addCookie(accessToken.getAccessToken());
+
+    return ResponseEntity.ok().build();
+  }
+
+  @GetMapping("/sync")
+  public ResponseEntity<Void> syncLogin(@AuthenticationPrincipal Long memberId, @RequestParam String type, @RequestParam String code, @RequestParam String redirectUrl) {
+    oauthService.syncLogin(memberId, type, code, redirectUrl);
 
     return ResponseEntity.ok().build();
   }
