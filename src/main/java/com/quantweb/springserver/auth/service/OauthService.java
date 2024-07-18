@@ -34,7 +34,8 @@ public class OauthService {
   private final KakaoProvider kakaoProvider;
   private final GoogleConnector googleConnector;
   private final GoogleProvider googleProvider;
-  private final UserImageService userImageService;
+  private final int ACCESS_COOKIE_AGE = (int) TimeUnit.MINUTES.toSeconds(15);
+  private final int REFRESH_COOKIE_AGE = (int) TimeUnit.DAYS.toSeconds(30);
 
 
   public OauthLinkResponse generateAuthUrl(String type, String redirectUrl) {
@@ -45,14 +46,15 @@ public class OauthService {
   @Transactional
   public LoginResponse requestAccessToken(String type, String code, String redirectUrl) {
     User user = checkAndSaveUser(type, code, redirectUrl);
+    user.updateLatestLoginAt(LocalDateTime.now());
 
     String token = jwtTokenProvider.createAccessToken(user.getId());
     String refreshToken = jwtTokenProvider.createRefreshToken(user.getId());
 
     tokenService.synchronizeRefreshToken(user, refreshToken);
 
-    Cookie accessCookie = createCookie("access_token", token, 60 * 60 * 24);
-    Cookie refreshCookie = createCookie("refresh_token", refreshToken, 60 * 60 * 24 * 10);
+    Cookie accessCookie = createCookie("access_token", token, ACCESS_COOKIE_AGE);
+    Cookie refreshCookie = createCookie("refresh_token", refreshToken, REFRESH_COOKIE_AGE);
 
     return new LoginResponse(accessCookie, refreshCookie);
   }
