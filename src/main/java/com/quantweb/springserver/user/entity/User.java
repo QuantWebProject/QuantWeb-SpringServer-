@@ -27,27 +27,12 @@ public class User {
   @Convert(converter = UserStatusConverter.class)
   private UserStatus userStatus;
 
-  @Column(name = "user_oauth_id")
-  private String oauthId;
-
-  @Column(name = "provider")
-  private String provider;
-
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_image_id")
-  private UserImage userImage;
 
   @Column(name = "user_nickname")
   private String nickname;
 
   @Column(name = "user_name")
   private String name;
-
-  @Column(name = "user_age")
-  private Integer age;
-
-  @Column(name = "user_sex")
-  private String sex;
 
   @Column(name = "user_email")
   private String email;
