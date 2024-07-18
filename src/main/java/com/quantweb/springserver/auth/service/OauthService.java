@@ -75,19 +75,19 @@ public class OauthService {
       String oauthId = String.valueOf(response.getId());
       return userRepository.findByOauthId(oauthId)
           .orElseGet(() -> {
-             User user = saveKakaoUser(response);
-             saveOauth(oauthId,user,"kakao");
-             return user;
+            User user = saveKakaoUser(response);
+            saveOauth(oauthId, user, "kakao");
+            return user;
           });
     }
     if (Objects.equals(type, "google")) {
       GoogleUserResponse response = googleConnector.requestGoogleUserInfo(code, redirectUrl)
           .getBody();
-      String oauthId = response.getId().substring(0,8);
+      String oauthId = response.getId().substring(0, 8);
       return userRepository.findByOauthId(oauthId)
           .orElseGet(() -> {
             User user = saveGoogleUser(response);
-            saveOauth(oauthId,user,"google");
+            saveOauth(oauthId, user, "google");
             return user;
           });
     } else {
@@ -95,8 +95,8 @@ public class OauthService {
     }
   }
 
-  private void saveOauth(String uid, User user,String provider) {
-    Oauth oauth = new Oauth(uid,user,provider);
+  private void saveOauth(String uid, User user, String provider) {
+    Oauth oauth = new Oauth(uid, user, provider);
     oauthRepository.save(oauth);
   }
 
@@ -153,20 +153,20 @@ public class OauthService {
   @Transactional
   public void syncLogin(Long userId, String type, String code, String redirectUrl) {
     User user = userRepository.findById(userId)
-            .orElseThrow(() -> new RuntimeException("존재하지 않는 유저입니다."));
-    checkAndSaveOauth(user,type,code,redirectUrl);
+        .orElseThrow(() -> new RuntimeException("존재하지 않는 유저입니다."));
+    checkAndSaveOauth(user, type, code, redirectUrl);
   }
 
   private void checkAndSaveOauth(User user, String type, String code, String redirectUrl) {
     if (Objects.equals(type, "kakao")) {
       KakaoUserResponse response = kakaoConnector.requestKakaoUserInfo(code, redirectUrl).getBody();
       String oauthId = String.valueOf(response.getId());
-      saveOauth(oauthId,user,"kakao");
+      saveOauth(oauthId, user, "kakao");
     }
     if (Objects.equals(type, "google")) {
       GoogleUserResponse response = googleConnector.requestGoogleUserInfo(code, redirectUrl)
           .getBody();
-      String oauthId = String.valueOf(response.getId()).substring(0,8);
+      String oauthId = String.valueOf(response.getId()).substring(0, 8);
       saveOauth(oauthId, user, "google");
     }
   }

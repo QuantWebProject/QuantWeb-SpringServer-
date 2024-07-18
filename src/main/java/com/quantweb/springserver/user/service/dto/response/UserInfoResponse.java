@@ -1,7 +1,7 @@
 package com.quantweb.springserver.user.service.dto.response;
 
-import lombok.Getter;
 import com.quantweb.springserver.user.entity.User;
+import lombok.Getter;
 
 @Getter
 public class UserInfoResponse {

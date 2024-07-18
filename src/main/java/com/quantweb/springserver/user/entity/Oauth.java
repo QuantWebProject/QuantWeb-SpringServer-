@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "oauth")
 public class Oauth {
+
   @Id
   @Column(name = "oauth_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)

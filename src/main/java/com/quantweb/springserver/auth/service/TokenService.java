@@ -1,11 +1,11 @@
 package com.quantweb.springserver.auth.service;
 
+import com.quantweb.springserver.auth.entity.Token;
+import com.quantweb.springserver.auth.entity.TokenRepository;
+import com.quantweb.springserver.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.quantweb.springserver.auth.entity.TokenRepository;
-import com.quantweb.springserver.user.entity.User;
-import com.quantweb.springserver.auth.entity.Token;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
