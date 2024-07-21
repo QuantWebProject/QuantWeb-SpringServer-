@@ -21,28 +21,28 @@ import lombok.NoArgsConstructor;
 @Table(name = "token")
 public class Token {
 
-  @Id
-  @Column(name = "token_id")
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+    @Id
+    @Column(name = "token_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
-  private User user;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-  @Column(nullable = false)
-  private String refreshToken;
+    @Column(nullable = false)
+    private String refreshToken;
 
-  public Token(User user, String refreshToken) {
-    this.user = user;
-    this.refreshToken = refreshToken;
-  }
+    public Token(User user, String refreshToken) {
+        this.user = user;
+        this.refreshToken = refreshToken;
+    }
 
-  public boolean isDifferentRefreshToken(String refreshToken) {
-    return !this.refreshToken.equals(refreshToken);
-  }
+    public boolean isDifferentRefreshToken(String refreshToken) {
+        return !this.refreshToken.equals(refreshToken);
+    }
 
-  public void updateRefreshToken(String refreshToken) {
-    this.refreshToken = refreshToken;
-  }
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
 }

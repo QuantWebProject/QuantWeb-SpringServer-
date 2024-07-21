@@ -1,4 +1,4 @@
-package com.quantweb.springserver.auth.support.kakao;
+package com.quantweb.springserver.auth.support.naver;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Component
-public class KakaoProvider {
+public class NaverProvider {
 
     private final String clientId;
     private final String clientSecret;
@@ -17,23 +17,23 @@ public class KakaoProvider {
     private final String accessTokenUrl;
     private final String userInfoUrl;
     private final String grantType;
-    private final String scope;
+    private final String state;
 
 
-    public KakaoProvider(@Value("${oauth2.kakao.client.id}") String clientId,
-        @Value("${oauth2.kakao.client.secret}") String clientSecret,
-        @Value("${oauth2.kakao.url.auth}") String authUrl,
-        @Value("${oauth2.kakao.url.token}") String accessTokenUrl,
-        @Value("${oauth2.kakao.url.userinfo}") String userInfoUrl,
-        @Value("${oauth2.kakao.grant-type}") String grantType,
-        @Value("${oauth2.kakao.scope}") String scope) {
+    public NaverProvider(@Value("${oauth2.naver.client.id}") String clientId,
+        @Value("${oauth2.naver.client.secret}") String clientSecret,
+        @Value("${oauth2.naver.url.auth}") String authUrl,
+        @Value("${oauth2.naver.url.token}") String accessTokenUrl,
+        @Value("${oauth2.naver.url.userinfo}") String userInfoUrl,
+        @Value("${oauth2.naver.grant-type}") String grantType,
+        @Value("${oauth2.naver.client.state}") String state) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.authUrl = authUrl;
         this.accessTokenUrl = accessTokenUrl;
         this.userInfoUrl = userInfoUrl;
         this.grantType = grantType;
-        this.scope = scope;
+        this.state = state;
     }
 
     public String generateAuthUrl(String redirectUrl) {
@@ -41,6 +41,7 @@ public class KakaoProvider {
         params.put("response_type", "code");
         params.put("client_id", clientId);
         params.put("redirect_uri", redirectUrl);
+        params.put("state", state);
         return authUrl + "?" + concatParams(params);
     }
 

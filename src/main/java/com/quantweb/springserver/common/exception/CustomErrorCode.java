@@ -4,9 +4,9 @@ import org.springframework.http.HttpStatus;
 
 public interface CustomErrorCode {
 
-	String name();
+    String name();
 
-	HttpStatus getHttpStatus();
+    HttpStatus getHttpStatus();
 
-	String getMessage();
+    String getMessage();
 }
