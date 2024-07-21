@@ -11,6 +11,9 @@ import com.quantweb.springserver.auth.support.google.dto.GoogleUserResponse;
 import com.quantweb.springserver.auth.support.kakao.KakaoConnector;
 import com.quantweb.springserver.auth.support.kakao.KakaoProvider;
 import com.quantweb.springserver.auth.support.kakao.dto.KakaoUserResponse;
+import com.quantweb.springserver.auth.support.naver.NaverConnector;
+import com.quantweb.springserver.auth.support.naver.NaverProvider;
+import com.quantweb.springserver.auth.support.naver.dto.NaverUserResponse;
 import com.quantweb.springserver.user.entity.Oauth;
 import com.quantweb.springserver.user.entity.OauthRepository;
 import com.quantweb.springserver.user.entity.User;
@@ -36,6 +39,8 @@ public class OauthService {
     private final KakaoProvider kakaoProvider;
     private final GoogleConnector googleConnector;
     private final GoogleProvider googleProvider;
+    private final NaverProvider naverProvider;
+    private final NaverConnector naverConnector;
     private final int ACCESS_COOKIE_AGE = (int) TimeUnit.MINUTES.toSeconds(15);
     private final int REFRESH_COOKIE_AGE = (int) TimeUnit.DAYS.toSeconds(30);
 
@@ -91,6 +96,17 @@ public class OauthService {
                     saveOauth(oauthId, user, "google");
                     return user;
                 });
+        }
+        if (Objects.equals(type, "naver")) {
+            NaverUserResponse response = naverConnector.requestNaverUserInfo(code, redirectUrl)
+                .getBody();
+            String oauthId = response.getNaverUserDetail().getId();
+            return userRepository.findByOauthId(oauthId)
+                .orElseGet(() -> {
+                    User user = saveNaverUser(response);
+                    saveOauth(oauthId, user, "naver");
+                    return user;
+                });
         } else {
             throw new RuntimeException("지원하지 않는 oauth 타입입니다.");
         }
@@ -119,8 +135,21 @@ public class OauthService {
             .userStatus(UserStatus.ACTIVATE)
             .isAdmin(false)
             .name(response.getKakaoAccount().getName())
-            .nickname(response.getKakaoAccount().getProfile().getNickName())
+            .nickname(RandomNickName.generateRandomNickname())
             .email(response.getKakaoAccount().getEmail())
+            .createdAt(LocalDateTime.now())
+            .build();
+
+        return userRepository.save(user);
+    }
+
+    private User saveNaverUser(NaverUserResponse response) {
+        User user = User.builder()
+            .userStatus(UserStatus.ACTIVATE)
+            .isAdmin(false)
+            .name(response.getNaverUserDetail().getName())
+            .nickname(RandomNickName.generateRandomNickname())
+            .email(response.getNaverUserDetail().getEmail())
             .createdAt(LocalDateTime.now())
             .build();
 
@@ -131,6 +160,7 @@ public class OauthService {
         return switch (type) {
             case "kakao" -> kakaoProvider.generateAuthUrl(redirectUrl);
             case "google" -> googleProvider.generateAuthUrl(redirectUrl);
+            case "naver" -> naverProvider.generateAuthUrl(redirectUrl);
             default -> throw new RuntimeException("지원하지 않는 oauth 타입입니다.");
         };
     }
@@ -170,6 +200,12 @@ public class OauthService {
                 .getBody();
             String oauthId = String.valueOf(response.getId()).substring(0, 8);
             saveOauth(oauthId, user, "google");
+        }
+        if (Objects.equals(type, "naver")) {
+            NaverUserResponse response = naverConnector.requestNaverUserInfo(code, redirectUrl)
+                .getBody();
+            String oauthId = response.getNaverUserDetail().getId();
+            saveOauth(oauthId, user, "naver");
         }
     }
 
