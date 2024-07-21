@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/users")
 public class UserController {
 
-  private final UserService service;
+    private final UserService service;
 
 
-  @GetMapping("/info")
-  public ResponseEntity<UserInfoResponse> retrieveUserInfo(@AuthenticationPrincipal Long userId) {
-    UserInfoResponse response = service.retrieveUserInfo(userId);
+    @GetMapping("/info")
+    public ResponseEntity<UserInfoResponse> retrieveUserInfo(@AuthenticationPrincipal Long userId) {
+        UserInfoResponse response = service.retrieveUserInfo(userId);
 
-    return ResponseEntity.ok(response);
-  }
+        return ResponseEntity.ok(response);
+    }
 
 }

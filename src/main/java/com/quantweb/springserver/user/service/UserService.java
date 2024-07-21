@@ -12,13 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class UserService {
 
-  private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-  public UserInfoResponse retrieveUserInfo(Long userId) {
-    User user = userRepository.findById(userId)
-        .orElseThrow(() -> new IllegalArgumentException("유저가 없습니다"));
+    public UserInfoResponse retrieveUserInfo(Long userId) {
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new IllegalArgumentException("유저가 없습니다"));
 
-    return new UserInfoResponse(user);
-  }
+        return new UserInfoResponse(user);
+    }
 
 }
