@@ -1,11 +1,11 @@
 package com.quantweb.springserver.user_image.service;
 
+import com.quantweb.springserver.user_image.entity.UserImage;
+import com.quantweb.springserver.user_image.entity.UserImageRepository;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.quantweb.springserver.user_image.entity.UserImage;
-import com.quantweb.springserver.user_image.entity.UserImageRepository;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
