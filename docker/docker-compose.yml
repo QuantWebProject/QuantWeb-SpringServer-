@@ -1,23 +1,37 @@
-version: '3'
+version: "3"
+
 services:
-  quant:
-    image: library/mysql:8.3
-    container_name: quant-db
-    restart: always
-    ports:
-      - "3306:3306"
+  sonarqube:
+    image: sonarqube:community
+    depends_on:
+      - db
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: quant
-      MYSQL_USER: quant
-      MYSQL_PASSWORD: 1234
-      TZ: Asia/Seoul
-      DB_HOST: host.docker.internal
-    command:
-      - --character-set-server=utf8mb4
-      - --collation-server=utf8mb4_unicode_ci
+      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
     volumes:
-      - ./db/mysql/data:/var/lib/mysql
-      - ./db/mysql/config:/etc/mysql/conf.d
-      - ./db/mysql/init:/docker-entrypoint-initdb.d
-    platform: linux/x86_64
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+    ports:
+      - "9000:9000"
+    ulimits:
+      nproc: 131072
+      nofile:
+        soft: 8192
+        hard: 131072
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+
+volumes:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+  postgresql:
+  postgresql_data:
