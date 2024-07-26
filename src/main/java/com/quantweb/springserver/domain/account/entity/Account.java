@@ -1,8 +1,7 @@
-package com.quantweb.springserver.domain.account.entity;
+package com.quantweb.springserver.domain.korean_invest_account.entity;
 
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
 import com.quantweb.springserver.domain.user.entity.User;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -16,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "account")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Account extends BaseTimeEntity {
+public class KoreanInvestAccount extends BaseTimeEntity {
 
     @Id
     @Column(name = "account_id")
