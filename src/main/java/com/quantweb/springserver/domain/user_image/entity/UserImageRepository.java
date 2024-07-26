@@ -1,4 +1,4 @@
-package com.quantweb.springserver.user_image.entity;
+package com.quantweb.springserver.domain.user_image.entity;
 
 import org.springframework.data.repository.Repository;
 

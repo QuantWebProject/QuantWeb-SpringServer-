@@ -1,4 +1,4 @@
-package com.quantweb.springserver.domain.graph.entity;
+package com.quantweb.springserver.domain.stock.entity;
 
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
 import jakarta.persistence.*;

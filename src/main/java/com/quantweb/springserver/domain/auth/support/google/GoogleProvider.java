@@ -1,4 +1,4 @@
-package com.quantweb.springserver.auth.support.google;
+package com.quantweb.springserver.domain.auth.support.google;
 
 import java.util.HashMap;
 import java.util.Map;

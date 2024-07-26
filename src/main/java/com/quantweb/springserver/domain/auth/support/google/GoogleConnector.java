@@ -1,7 +1,7 @@
-package com.quantweb.springserver.auth.support.google;
+package com.quantweb.springserver.domain.auth.support.google;
 
-import com.quantweb.springserver.auth.support.google.dto.GoogleTokenResponse;
-import com.quantweb.springserver.auth.support.google.dto.GoogleUserResponse;
+import com.quantweb.springserver.domain.auth.support.google.dto.GoogleTokenResponse;
+import com.quantweb.springserver.domain.auth.support.google.dto.GoogleUserResponse;
 import java.util.Collections;
 import java.util.Optional;
 import lombok.Getter;

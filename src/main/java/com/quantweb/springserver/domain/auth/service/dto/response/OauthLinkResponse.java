@@ -1,4 +1,4 @@
-package com.quantweb.springserver.auth.service.dto.response;
+package com.quantweb.springserver.domain.auth.service.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

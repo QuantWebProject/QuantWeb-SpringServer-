@@ -1,6 +1,6 @@
-package com.quantweb.springserver.user.service.dto.response;
+package com.quantweb.springserver.domain.user.service.dto.response;
 
-import com.quantweb.springserver.user.entity.User;
+import com.quantweb.springserver.domain.user.entity.User;
 import lombok.Getter;
 
 @Getter

@@ -1,4 +1,4 @@
-package com.quantweb.springserver.user.exception;
+package com.quantweb.springserver.domain.user.exception;
 
 public class UserNotExistsException extends RuntimeException {
 

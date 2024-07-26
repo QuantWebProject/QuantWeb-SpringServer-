@@ -1,7 +1,7 @@
-package com.quantweb.springserver.auth.support.kakao;
+package com.quantweb.springserver.domain.auth.support.kakao;
 
-import com.quantweb.springserver.auth.support.kakao.dto.KakaoTokenResponse;
-import com.quantweb.springserver.auth.support.kakao.dto.KakaoUserResponse;
+import com.quantweb.springserver.domain.auth.support.kakao.dto.KakaoTokenResponse;
+import com.quantweb.springserver.domain.auth.support.kakao.dto.KakaoUserResponse;
 import java.util.Collections;
 import java.util.Optional;
 import lombok.Getter;

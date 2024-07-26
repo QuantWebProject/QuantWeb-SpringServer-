@@ -1,4 +1,4 @@
-package com.quantweb.springserver.user.entity;
+package com.quantweb.springserver.domain.user.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.quantweb.springserver.user.user_status;
+package com.quantweb.springserver.domain.user.user_status;
 
 import java.util.Arrays;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.quantweb.springserver.domain.variables.entity;
+package com.quantweb.springserver.domain.tech_analy_strategy_variables.entity;
 
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
 import com.quantweb.springserver.domain.back_test.entity.BackTest;
@@ -23,9 +23,11 @@ public class TechAnalyStrategyVariables extends BaseTimeEntity {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "back_test_id")
     private BackTest backTest;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "investment_simulation_id")
     private InvestmentSimulation investmentSimulation;
 
     private Integer topNAssets;

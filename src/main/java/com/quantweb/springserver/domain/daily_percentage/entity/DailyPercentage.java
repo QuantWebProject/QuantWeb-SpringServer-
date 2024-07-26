@@ -2,7 +2,7 @@ package com.quantweb.springserver.domain.daily_percentage.entity;
 
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
 import com.quantweb.springserver.domain.graph.entity.Graph;
-import com.quantweb.springserver.domain.graph.entity.Stock;
+import com.quantweb.springserver.domain.stock.entity.Stock;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,10 +32,4 @@ public class DailyPercentage extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "graph_id")
     private Graph graph;
-
-    @OneToMany(mappedBy = "daily_percentage", cascade = CascadeType.ALL)
-    private List<DailyPercentage> dailyPercentages;
-
-    @OneToOne(mappedBy = "graph", fetch = FetchType.LAZY)
-    private Stock stock;
 }

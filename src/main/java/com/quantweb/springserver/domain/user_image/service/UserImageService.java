@@ -1,7 +1,7 @@
-package com.quantweb.springserver.user_image.service;
+package com.quantweb.springserver.domain.user_image.service;
 
-import com.quantweb.springserver.user_image.entity.UserImage;
-import com.quantweb.springserver.user_image.entity.UserImageRepository;
+import com.quantweb.springserver.domain.user_image.entity.UserImage;
+import com.quantweb.springserver.domain.user_image.entity.UserImageRepository;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

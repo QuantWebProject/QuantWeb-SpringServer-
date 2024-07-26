@@ -1,4 +1,4 @@
-package com.quantweb.springserver.auth.support.kakao.dto;
+package com.quantweb.springserver.domain.auth.support.kakao.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

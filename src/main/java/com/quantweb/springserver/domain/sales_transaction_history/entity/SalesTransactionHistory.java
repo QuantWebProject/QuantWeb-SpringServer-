@@ -3,14 +3,11 @@ package com.quantweb.springserver.domain.sales_transaction_history.entity;
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
 import com.quantweb.springserver.domain.back_test.entity.BackTest;
 import com.quantweb.springserver.domain.investment_simulation.entity.InvestmentSimulation;
-import com.quantweb.springserver.domain.market.entity.Market;
-import com.quantweb.springserver.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.Primary;
 
 import java.time.LocalDateTime;
 

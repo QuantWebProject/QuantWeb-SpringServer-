@@ -1,4 +1,4 @@
-package com.quantweb.springserver.auth.support.kakao;
+package com.quantweb.springserver.domain.auth.support.kakao;
 
 import java.util.HashMap;
 import java.util.Map;

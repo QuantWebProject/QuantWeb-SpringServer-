@@ -1,9 +1,9 @@
-package com.quantweb.springserver.auth.config;
+package com.quantweb.springserver.domain.auth.config;
 
-import com.quantweb.springserver.auth.entity.Token;
-import com.quantweb.springserver.auth.entity.TokenRepository;
-import com.quantweb.springserver.auth.support.CookieExtractor;
-import com.quantweb.springserver.auth.support.JwtTokenProvider;
+import com.quantweb.springserver.domain.auth.entity.Token;
+import com.quantweb.springserver.domain.auth.entity.TokenRepository;
+import com.quantweb.springserver.domain.auth.support.CookieExtractor;
+import com.quantweb.springserver.domain.auth.support.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

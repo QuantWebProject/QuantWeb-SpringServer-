@@ -1,8 +1,8 @@
-package com.quantweb.springserver.auth.service;
+package com.quantweb.springserver.domain.auth.service;
 
-import com.quantweb.springserver.auth.entity.Token;
-import com.quantweb.springserver.auth.entity.TokenRepository;
-import com.quantweb.springserver.user.entity.User;
+import com.quantweb.springserver.domain.auth.entity.Token;
+import com.quantweb.springserver.domain.auth.entity.TokenRepository;
+import com.quantweb.springserver.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

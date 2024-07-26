@@ -1,4 +1,4 @@
-package com.quantweb.springserver.auth.support.kakao.dto;
+package com.quantweb.springserver.domain.auth.support.kakao.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

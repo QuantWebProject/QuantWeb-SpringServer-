@@ -1,4 +1,4 @@
-package com.quantweb.springserver.auth.config;
+package com.quantweb.springserver.domain.auth.config;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,7 +1,7 @@
-package com.quantweb.springserver.auth.entity;
+package com.quantweb.springserver.domain.auth.entity;
 
 
-import com.quantweb.springserver.user.entity.User;
+import com.quantweb.springserver.domain.user.entity.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

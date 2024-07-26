@@ -1,4 +1,4 @@
-package com.quantweb.springserver.auth.support;
+package com.quantweb.springserver.domain.auth.support;
 
 
 import io.jsonwebtoken.Claims;

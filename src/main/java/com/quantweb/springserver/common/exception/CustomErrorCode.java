@@ -1,4 +1,4 @@
-package com.quantweb.springserver.global.common.exception;
+package com.quantweb.springserver.common.exception;
 
 import org.springframework.http.HttpStatus;
 

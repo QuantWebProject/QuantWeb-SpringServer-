@@ -1,4 +1,4 @@
-package com.quantweb.springserver.auth.entity;
+package com.quantweb.springserver.domain.auth.entity;
 
 import java.util.Optional;
 import org.springframework.data.jpa.repository.Modifying;

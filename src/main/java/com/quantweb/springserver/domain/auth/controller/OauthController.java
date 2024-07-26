@@ -1,12 +1,12 @@
-package com.quantweb.springserver.auth.controller;
+package com.quantweb.springserver.domain.auth.controller;
 
-import com.quantweb.springserver.auth.config.Authenticated;
-import com.quantweb.springserver.auth.config.AuthenticationPrincipal;
-import com.quantweb.springserver.auth.config.AuthenticationRefreshPrincipal;
-import com.quantweb.springserver.auth.service.OauthService;
-import com.quantweb.springserver.auth.service.dto.response.AccessTokenResponse;
-import com.quantweb.springserver.auth.service.dto.response.LoginResponse;
-import com.quantweb.springserver.auth.service.dto.response.OauthLinkResponse;
+import com.quantweb.springserver.domain.auth.config.Authenticated;
+import com.quantweb.springserver.domain.auth.config.AuthenticationPrincipal;
+import com.quantweb.springserver.domain.auth.config.AuthenticationRefreshPrincipal;
+import com.quantweb.springserver.domain.auth.service.OauthService;
+import com.quantweb.springserver.domain.auth.service.dto.response.AccessTokenResponse;
+import com.quantweb.springserver.domain.auth.service.dto.response.LoginResponse;
+import com.quantweb.springserver.domain.auth.service.dto.response.OauthLinkResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

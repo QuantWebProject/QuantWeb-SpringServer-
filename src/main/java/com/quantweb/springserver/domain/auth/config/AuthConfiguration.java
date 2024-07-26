@@ -1,8 +1,9 @@
-package com.quantweb.springserver.auth.config;
+package com.quantweb.springserver.domain.auth.config;
 
-import com.quantweb.springserver.auth.entity.TokenRepository;
-import com.quantweb.springserver.auth.support.JwtTokenProvider;
+import com.quantweb.springserver.domain.auth.entity.TokenRepository;
+import com.quantweb.springserver.domain.auth.support.JwtTokenProvider;
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;

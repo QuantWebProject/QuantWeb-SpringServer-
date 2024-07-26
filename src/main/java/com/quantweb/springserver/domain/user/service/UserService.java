@@ -1,8 +1,8 @@
-package com.quantweb.springserver.user.service;
+package com.quantweb.springserver.domain.user.service;
 
-import com.quantweb.springserver.user.entity.User;
-import com.quantweb.springserver.user.entity.UserRepository;
-import com.quantweb.springserver.user.service.dto.response.UserInfoResponse;
+import com.quantweb.springserver.domain.user.service.dto.response.UserInfoResponse;
+import com.quantweb.springserver.domain.user.entity.User;
+import com.quantweb.springserver.domain.user.entity.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

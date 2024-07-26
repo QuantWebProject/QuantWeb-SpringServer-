@@ -1,4 +1,4 @@
-package com.quantweb.springserver.auth.support.naver;
+package com.quantweb.springserver.domain.auth.support.naver;
 
 import java.util.HashMap;
 import java.util.Map;

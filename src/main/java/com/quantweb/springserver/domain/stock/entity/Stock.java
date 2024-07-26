@@ -1,6 +1,7 @@
-package com.quantweb.springserver.domain.graph.entity;
+package com.quantweb.springserver.domain.stock.entity;
 
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
+import com.quantweb.springserver.domain.graph.entity.Graph;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,8 +21,8 @@ public class Stock extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @EmbeddedId
-    private PriceChangeAndMddFK priceChangeAndMddFK;
+    @OneToOne(fetch = FetchType.LAZY)
+    private Graph graph;
 
     private String stockName;
 }

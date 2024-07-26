@@ -1,7 +1,7 @@
-package com.quantweb.springserver.auth.support.naver;
+package com.quantweb.springserver.domain.auth.support.naver;
 
-import com.quantweb.springserver.auth.support.naver.dto.NaverTokenResponse;
-import com.quantweb.springserver.auth.support.naver.dto.NaverUserResponse;
+import com.quantweb.springserver.domain.auth.support.naver.dto.NaverTokenResponse;
+import com.quantweb.springserver.domain.auth.support.naver.dto.NaverUserResponse;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.quantweb.springserver.user.entity;
+package com.quantweb.springserver.domain.user.entity;
 
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

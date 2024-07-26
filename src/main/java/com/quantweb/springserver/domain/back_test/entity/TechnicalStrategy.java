@@ -1,2 +1,5 @@
-package com.quantweb.springserver.domain.back_test.entity;public enum TechnicalStrategy {
+package com.quantweb.springserver.domain.back_test.entity;
+
+public enum TechnicalStrategy {
+
 }

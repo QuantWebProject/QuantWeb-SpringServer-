@@ -1,7 +1,7 @@
-package com.quantweb.springserver.user.entity;
+package com.quantweb.springserver.domain.user.entity;
 
-import com.quantweb.springserver.user.user_status.UserStatus;
-import com.quantweb.springserver.user.user_status.UserStatusConverter;
+import com.quantweb.springserver.domain.user.user_status.UserStatus;
+import com.quantweb.springserver.domain.user.user_status.UserStatusConverter;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;

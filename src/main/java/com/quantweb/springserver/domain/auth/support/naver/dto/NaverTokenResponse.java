@@ -1,4 +1,4 @@
-package com.quantweb.springserver.auth.support.naver.dto;
+package com.quantweb.springserver.domain.auth.support.naver.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;

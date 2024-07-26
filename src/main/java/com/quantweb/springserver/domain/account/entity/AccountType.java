@@ -1,4 +1,4 @@
-package com.quantweb.springserver.domain.korean_invest_account.entity;
+package com.quantweb.springserver.domain.account.entity;
 
 public enum AccountType {
 
