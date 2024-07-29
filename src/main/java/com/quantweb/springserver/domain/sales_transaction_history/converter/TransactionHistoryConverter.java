@@ -1,6 +1,6 @@
 package com.quantweb.springserver.domain.sales_transaction_history.converter;
 
-import com.quantweb.springserver.domain.back_test.DTO.response.InvestmentResultDto;
+import com.quantweb.springserver.domain.back_test.dto.response.InvestmentResultDto;
 import com.quantweb.springserver.domain.back_test.entity.BackTest;
 import com.quantweb.springserver.domain.sales_transaction_history.entity.SalesTransactionHistory;
 import com.quantweb.springserver.domain.sales_transaction_history.entity.TransactionType;

@@ -1,4 +1,4 @@
-package com.quantweb.springserver.domain.back_test.DTO.request;
+package com.quantweb.springserver.domain.back_test.dto.request;
 
 import com.google.gson.annotations.SerializedName;
 

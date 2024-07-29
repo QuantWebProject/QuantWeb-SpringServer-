@@ -1,6 +1,6 @@
 package com.quantweb.springserver.domain.graph.service;
 
-import com.quantweb.springserver.domain.back_test.DTO.response.InvestmentResultDto;
+import com.quantweb.springserver.domain.back_test.dto.response.InvestmentResultDto;
 import com.quantweb.springserver.domain.back_test.entity.BackTest;
 import com.quantweb.springserver.domain.graph.converter.GraphConverter;
 import com.quantweb.springserver.domain.graph.entity.Graph;

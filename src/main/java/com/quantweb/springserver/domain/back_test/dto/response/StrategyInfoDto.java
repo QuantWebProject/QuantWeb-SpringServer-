@@ -1,4 +1,4 @@
-package com.quantweb.springserver.domain.back_test.DTO.response;
+package com.quantweb.springserver.domain.back_test.dto.response;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;

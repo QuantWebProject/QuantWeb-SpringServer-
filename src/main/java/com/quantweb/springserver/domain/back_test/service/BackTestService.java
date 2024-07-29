@@ -1,14 +1,12 @@
 package com.quantweb.springserver.domain.back_test.service;
 
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
-import com.quantweb.springserver.common.exception.CustomErrorCode;
-import com.quantweb.springserver.common.exception.CustomException;
-import com.quantweb.springserver.common.exception.CustomExceptionHandler;
-import com.quantweb.springserver.domain.back_test.DTO.response.BackTestResultDto;
-import com.quantweb.springserver.domain.back_test.DTO.response.StrategyInfoDto;
+import com.quantweb.springserver.domain.back_test.dto.response.BackTestResponseDto;
+import com.quantweb.springserver.domain.back_test.dto.response.BackTestResultDto;
+import com.quantweb.springserver.domain.back_test.dto.response.StrategyInfoDto;
 import com.quantweb.springserver.domain.back_test.converter.BackTestConverter;
 import com.quantweb.springserver.domain.back_test.entity.BackTest;
 import com.quantweb.springserver.domain.graph.converter.GraphConverter;
@@ -30,8 +28,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.quantweb.springserver.domain.back_test.DTO.request.BackTestInput;
-import com.quantweb.springserver.domain.back_test.DTO.response.InvestmentResultDto;
+import com.quantweb.springserver.domain.back_test.dto.request.BackTestInput;
+import com.quantweb.springserver.domain.back_test.dto.response.InvestmentResultDto;
 import com.quantweb.springserver.domain.back_test.repository.BackTestRepository;
 import com.quantweb.springserver.utils.LocalDateAdapter;
 import com.quantweb.springserver.utils.LocalDateTimeAdapter;
@@ -110,5 +108,16 @@ public class BackTestService {
 
 		return newBackTest;
 	}
+	
+
+    public BackTestResponseDto.BackTestResultDto getDetailsResult(Long backtestId){
+
+        BackTest backTest = backTestRepository.findById(backtestId).orElseThrow();
+
+        BackTestResponseDto.BackTestResultDto backTestResultDto = BackTestConverter.toBackTestResultDto(backTest);
+
+        return backTestResultDto;
+    }
+
 
 }
