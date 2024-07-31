@@ -2,4 +2,4 @@
 
 Spring Boot WAS for Quantweb project
 
-cd 테스트 push
+cd 테스트2
