@@ -1,8 +1,8 @@
 package com.quantweb.springserver.domain.user.controller;
 
 import com.quantweb.springserver.domain.auth.config.AuthenticationPrincipal;
-import com.quantweb.springserver.domain.user.service.dto.response.UserInfoResponse;
 import com.quantweb.springserver.domain.user.service.UserService;
+import com.quantweb.springserver.domain.user.service.dto.response.UserInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
