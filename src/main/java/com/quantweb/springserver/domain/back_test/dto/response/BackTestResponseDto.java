@@ -41,8 +41,8 @@ public class BackTestResponseDto {
         @Getter
         @Builder
         public static class DailyCumulativeReturn {
-            private BackTestOrUs500 backTest;
-            private BackTestOrUs500 us500;
+            private List<BackTestOrUs500> backTest;
+            private List<BackTestOrUs500> us500;
 
             @NoArgsConstructor
             @AllArgsConstructor
@@ -59,8 +59,8 @@ public class BackTestResponseDto {
         @Getter
         @Builder
         public static class MaxDrawdownGraph {
-            private BackTestOrUs500 backTest;
-            private BackTestOrUs500 us500;
+            private List<BackTestOrUs500> backTest;
+            private List<BackTestOrUs500> us500;
 
             @NoArgsConstructor
             @AllArgsConstructor

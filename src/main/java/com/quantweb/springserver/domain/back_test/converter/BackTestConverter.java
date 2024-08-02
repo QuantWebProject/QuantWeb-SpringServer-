@@ -9,6 +9,8 @@ import com.quantweb.springserver.domain.back_test.entity.TechnicalStrategy;
 
 import java.time.LocalDate;
 
+import java.util.List;
+
 public class BackTestConverter {
 
     public static BackTest toBackTest(BackTestInput backTestInput, InvestmentResultDto responseDto){
@@ -67,18 +69,12 @@ public class BackTestConverter {
                 .build();
     }
 
+    //누적 수익률
     public static BackTestResultDto.DailyCumulativeReturn toDailyCumulativeReturn(){
-        //누적 수익률
-        BackTestResultDto.DailyCumulativeReturn.BackTestOrUs500 backtest = BackTestResultDto.DailyCumulativeReturn.BackTestOrUs500.builder()
-                .date()
-                .returns()
-                .build();
 
+        List<BackTestResultDto.DailyCumulativeReturn.BackTestOrUs500> backtest;
 
-        BackTestResultDto.DailyCumulativeReturn.BackTestOrUs500 us500 = BackTestResultDto.DailyCumulativeReturn.BackTestOrUs500.builder()
-                .date()
-                .returns()
-                .build();
+        List<BackTestResultDto.DailyCumulativeReturn.BackTestOrUs500> us500;
 
         return BackTestResultDto.DailyCumulativeReturn.builder()
                 .backTest(backtest)
@@ -86,18 +82,13 @@ public class BackTestConverter {
                 .build();
     }
 
+    //mdd
     public static BackTestResultDto.MaxDrawdownGraph toMaxDrawdownGraph(){
-        //mdd
-        BackTestResultDto.MaxDrawdownGraph.BackTestOrUs500 backtest = BackTestResultDto.MaxDrawdownGraph.BackTestOrUs500.builder()
-                .date()
-                .returns()
-                .build();
+
+        List<BackTestResultDto.MaxDrawdownGraph.BackTestOrUs500> backtest;
 
 
-        BackTestResultDto.MaxDrawdownGraph.BackTestOrUs500 us500 = BackTestResultDto.MaxDrawdownGraph.BackTestOrUs500.builder()
-                .date()
-                .returns()
-                .build();
+        List<BackTestResultDto.MaxDrawdownGraph.BackTestOrUs500> us500;
 
         return BackTestResultDto.MaxDrawdownGraph.builder()
                 .backTest(backtest)
