@@ -108,7 +108,7 @@ public class BackTestService {
 
 		return newBackTest;
 	}
-	
+
 
     public BackTestResponseDto.BackTestResultDto getDetailsResult(Long backtestId){
 

@@ -2,13 +2,12 @@ package com.quantweb.springserver.domain.back_test.converter;
 
 
 import com.quantweb.springserver.domain.back_test.dto.request.BackTestInput;
-import com.quantweb.springserver.domain.back_test.dto.response.BackTestResponseDto;
 import com.quantweb.springserver.domain.back_test.dto.response.InvestmentResultDto;
+import com.quantweb.springserver.domain.back_test.dto.response.BackTestResponseDto.BackTestResultDto;
 import com.quantweb.springserver.domain.back_test.entity.BackTest;
 import com.quantweb.springserver.domain.back_test.entity.TechnicalStrategy;
 
 import java.time.LocalDate;
-
 
 public class BackTestConverter {
 
@@ -33,18 +32,76 @@ public class BackTestConverter {
                 .build();
     }
 
-    public static BackTestResponseDto.BackTestResultDto toBackTestResultDto(BackTest backTest){
+//    public static BackTestResponseDto.BackTestResultDto toBackTestResultDto(BackTest backTest){
+//
+//        return BackTestResponseDto.BackTestResultDto.builder()
+////                .accumulatedProfit(backTest.getRealizedProfit())
+////                .mdd()
+////                .totalAssest()
+////                .initInvestFund()
+////                .evaluatedProfit()
+////                .realizedProfit()
+////                .marketShared()
+////                .investCategories()
+//                .build();
+//    }
 
-        return BackTestResponseDto.BackTestResultDto.builder()
-//                .accumulatedProfit(backTest.getRealizedProfit())
-//                .mdd()
-//                .totalAssest()
-//                .initInvestFund()
-//                .evaluatedProfit()
-//                .realizedProfit()
-//                .marketShared()
-//                .investCategories()
 
+    public static BackTestResultDto toBackTestResultDto(BackTest backTest){
+        BackTestResultDto.DailyCumulativeReturn dailyCumulativeReturn = toDailyCumulativeReturn();
+
+        BackTestResultDto.MaxDrawdownGraph maxDrawdownGraph = toMaxDrawdownGraph();
+
+        return BackTestResultDto.builder()
+                .finalCumulativeReturn()
+                .dailyCumulativeReturn(dailyCumulativeReturn)
+                .mdd()
+                .maxDrawdownGraph(maxDrawdownGraph)
+                .startDate()
+                .endDate()
+                .finalAsset()
+                .initialAmount()
+                .evaluatedProfit()
+                .realizedProfit()
+                .marketShared()
+                .build();
+    }
+
+    public static BackTestResultDto.DailyCumulativeReturn toDailyCumulativeReturn(){
+        //누적 수익률
+        BackTestResultDto.DailyCumulativeReturn.BackTestOrUs500 backtest = BackTestResultDto.DailyCumulativeReturn.BackTestOrUs500.builder()
+                .date()
+                .returns()
+                .build();
+
+
+        BackTestResultDto.DailyCumulativeReturn.BackTestOrUs500 us500 = BackTestResultDto.DailyCumulativeReturn.BackTestOrUs500.builder()
+                .date()
+                .returns()
+                .build();
+
+        return BackTestResultDto.DailyCumulativeReturn.builder()
+                .backTest(backtest)
+                .us500(us500)
+                .build();
+    }
+
+    public static BackTestResultDto.MaxDrawdownGraph toMaxDrawdownGraph(){
+        //mdd
+        BackTestResultDto.MaxDrawdownGraph.BackTestOrUs500 backtest = BackTestResultDto.MaxDrawdownGraph.BackTestOrUs500.builder()
+                .date()
+                .returns()
+                .build();
+
+
+        BackTestResultDto.MaxDrawdownGraph.BackTestOrUs500 us500 = BackTestResultDto.MaxDrawdownGraph.BackTestOrUs500.builder()
+                .date()
+                .returns()
+                .build();
+
+        return BackTestResultDto.MaxDrawdownGraph.builder()
+                .backTest(backtest)
+                .us500(us500)
                 .build();
     }
 }
