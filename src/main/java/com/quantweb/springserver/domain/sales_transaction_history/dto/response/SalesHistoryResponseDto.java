@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,4 +30,16 @@ public class SalesHistoryResponseDto {
     private TransactionType status; //상태: 거래완료
     private Integer fee;    //수수료
 
+    private List<TransactionHistoryGraph> transactionHistoryGraph;  //매매내역 - 그래프
+
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    @Builder
+    public static class TransactionHistoryGraph {
+        private LocalDateTime date;
+        private Integer amount;
+        private Boolean action;
+        private String ticker;
+    }
 }
