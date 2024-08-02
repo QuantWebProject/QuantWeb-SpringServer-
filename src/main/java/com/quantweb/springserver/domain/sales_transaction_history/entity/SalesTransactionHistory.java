@@ -38,5 +38,5 @@ public class SalesTransactionHistory extends BaseTimeEntity {
 
     private Float price;
 
-    private TransactionType type;
+    private TransactionStatus type;
 }
