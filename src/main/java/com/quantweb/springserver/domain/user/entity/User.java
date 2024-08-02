@@ -28,40 +28,40 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User {
 
-    @Id
-    @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @Column(name = "user_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(name = "user_status_id")
-    @Convert(converter = UserStatusConverter.class)
-    private UserStatus userStatus;
+  @Column(name = "user_status_id")
+  @Convert(converter = UserStatusConverter.class)
+  private UserStatus userStatus;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Oauth> oauthList = new ArrayList<>();
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Oauth> oauthList = new ArrayList<>();
 
-    @Column(name = "user_nickname")
-    private String nickname;
+  @Column(name = "user_nickname")
+  private String nickname;
 
-    @Column(name = "user_name")
-    private String name;
+  @Column(name = "user_name")
+  private String name;
 
-    @Column(name = "user_email")
-    private String email;
+  @Column(name = "user_email")
+  private String email;
 
-    @Column(name = "is_admin")
-    private Boolean isAdmin;
+  @Column(name = "is_admin")
+  private Boolean isAdmin;
 
-    @Column(name = "user_latest_login_at")
-    private LocalDateTime latestLoginAt;
+  @Column(name = "user_latest_login_at")
+  private LocalDateTime latestLoginAt;
 
-    @Column(name = "user_created_at")
-    private LocalDateTime createdAt;
+  @Column(name = "user_created_at")
+  private LocalDateTime createdAt;
 
-    @Column(name = "user_deleted_at")
-    private LocalDateTime deletedAt;
+  @Column(name = "user_deleted_at")
+  private LocalDateTime deletedAt;
 
-    public void updateLatestLoginAt(LocalDateTime now) {
-        this.latestLoginAt = now;
-    }
+  public void updateLatestLoginAt(LocalDateTime now) {
+    this.latestLoginAt = now;
+  }
 }

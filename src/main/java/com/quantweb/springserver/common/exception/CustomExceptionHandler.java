@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class CustomExceptionHandler {
 
-    @ExceptionHandler(CustomException.class)
-    protected HttpEntity<JSONObject> handleCustomException(CustomException e) {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("message", e.getErrorCode().getMessage());
-        return CustomResponseEntity.of(e.getErrorCode().getHttpStatus(), new HttpHeaders(),
-            jsonObject);
-    }
+  @ExceptionHandler(CustomException.class)
+  protected HttpEntity<JSONObject> handleCustomException(CustomException e) {
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("message", e.getErrorCode().getMessage());
+    return CustomResponseEntity.of(e.getErrorCode().getHttpStatus(), new HttpHeaders(), jsonObject);
+  }
 }

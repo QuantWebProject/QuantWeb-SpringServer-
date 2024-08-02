@@ -18,24 +18,24 @@ import lombok.NoArgsConstructor;
 @Table(name = "oauth")
 public class Oauth {
 
-    @Id
-    @Column(name = "oauth_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @Column(name = "oauth_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(name = "oauth_uid")
-    private String uid;
+  @Column(name = "oauth_uid")
+  private String uid;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id")
+  private User user;
 
-    @Column(name = "provider")
-    private String provider;
+  @Column(name = "provider")
+  private String provider;
 
-    public Oauth(String uid, User user, String provider) {
-        this.uid = uid;
-        this.user = user;
-        this.provider = provider;
-    }
+  public Oauth(String uid, User user, String provider) {
+    this.uid = uid;
+    this.user = user;
+    this.provider = provider;
+  }
 }

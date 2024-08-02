@@ -12,15 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserImageService {
 
-    private final UserImageRepository userImageRepository;
+  private final UserImageRepository userImageRepository;
 
-    @Transactional
-    public UserImage saveUserImage(String imageUrl) {
-        UserImage userImage = new UserImage(imageUrl, LocalDate.now());
+  @Transactional
+  public UserImage saveUserImage(String imageUrl) {
+    UserImage userImage = new UserImage(imageUrl, LocalDate.now());
 
-        userImageRepository.save(userImage);
+    userImageRepository.save(userImage);
 
-        return userImage;
-    }
-
+    return userImage;
+  }
 }
