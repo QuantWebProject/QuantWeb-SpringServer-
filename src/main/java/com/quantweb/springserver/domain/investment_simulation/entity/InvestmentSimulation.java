@@ -1,7 +1,7 @@
 package com.quantweb.springserver.domain.investment_simulation.entity;
 
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
-import com.quantweb.springserver.domain.back_test.entity.TechnicalStrategy;
+import com.quantweb.springserver.domain.back_test.DTO.TechnicalAnalysisStrategy;
 import com.quantweb.springserver.domain.graph.entity.MyStrategyGraph;
 import com.quantweb.springserver.domain.history.entity.History;
 import com.quantweb.springserver.domain.sales_transaction_history.entity.SalesTransactionHistory;
@@ -64,7 +64,8 @@ public class InvestmentSimulation extends BaseTimeEntity {
 
     private LocalDateTime deletedAt;
 
-    private TechnicalStrategy strategy;
+    @Transient
+    private TechnicalAnalysisStrategy technicalAnalysisStrategy;
 
     @OneToOne(mappedBy = "investmentSimulation", fetch = FetchType.LAZY)
     private TechAnalyStrategyVariables variables;
