@@ -16,4 +16,19 @@ public class StockConverter {
                 .investmentSimulation(null)
                 .build();
     }
+
+
+public class StockConverter {
+
+    public static StockResponseDto toStockResponseDto(){
+
+        List<StockResponseDto.StockRatio> stockRatioList;
+
+        List<StockResponseDto.InvestmentSectorsPieChart> charts;
+
+        return StockResponseDto.builder()
+                .stocks()
+                .investmentSectorsPieChart()
+                .build();
+    }
 }
