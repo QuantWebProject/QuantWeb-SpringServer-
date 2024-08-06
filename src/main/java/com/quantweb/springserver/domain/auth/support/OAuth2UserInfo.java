@@ -2,11 +2,11 @@ package com.quantweb.springserver.domain.auth.support;
 
 public interface OAuth2UserInfo {
 
-    String getProviderId();
+  String getProviderId();
 
-    String getProvider();
+  String getProvider();
 
-    String getEmail();
+  String getEmail();
 
-    String getName();
+  String getName();
 }
