@@ -40,7 +40,6 @@ public class AuthConfiguration implements WebMvcConfigurer {
   @Override
   public void addCorsMappings(CorsRegistry registry) {
 
-
     final String LOCAL_URL = "http://localhost:5173";
 
     registry
