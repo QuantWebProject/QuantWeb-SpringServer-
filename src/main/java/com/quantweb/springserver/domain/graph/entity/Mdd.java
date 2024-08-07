@@ -1,4 +1,4 @@
-package com.quantweb.springserver.domain.history.entity;
+package com.quantweb.springserver.domain.graph.entity;
 
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
 import jakarta.persistence.*;
@@ -12,19 +12,21 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Builder
-@Table(name = "day_history")
+@Table(name = "mdd")
 @AllArgsConstructor
 @NoArgsConstructor
-public class DayHistory extends BaseTimeEntity {
+public class Mdd extends BaseTimeEntity {
 
     @Id
-    @Column(name = "day_history_id")
+    @Column(name = "mdd_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime day;
+    private LocalDateTime date;
+
+    private Float returns;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "history_id")
-    private History history;
+    @JoinColumn(name = "graph_id")
+    private Graph graph;
 }
