@@ -1,4 +1,4 @@
-package com.quantweb.springserver.domain.stock.entity;
+package com.quantweb.springserver.domain.graph.entity;
 
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
 import jakarta.persistence.*;
@@ -12,19 +12,21 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Builder
-@Table(name = "stock_graph")
+@Table(name = "mdd_us500")
 @AllArgsConstructor
 @NoArgsConstructor
-public class StockGraph extends BaseTimeEntity {
+public class MddUs500 extends BaseTimeEntity {
 
     @Id
-    @Column(name = "stock_graph_id")
+    @Column(name = "mdd_us500_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "stock_id")
-    private Stock stock;
+    private LocalDateTime date;
 
-    private LocalDateTime day;
+    private Float returns;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "graph_id")
+    private Graph graph;
 }

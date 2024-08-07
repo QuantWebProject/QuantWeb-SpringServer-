@@ -1,4 +1,4 @@
-package com.quantweb.springserver.domain.history.entity;
+package com.quantweb.springserver.domain.investment_sectors_pie_chart.entity;
 
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
 import com.quantweb.springserver.domain.back_test.entity.BackTest;
@@ -9,20 +9,22 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Getter
 @Builder
-@Table(name = "history")
+@Table(name = "investment_sectors_pie_chart")
 @AllArgsConstructor
 @NoArgsConstructor
-public class History extends BaseTimeEntity {
+public class InvestmentSectorsPieChart extends BaseTimeEntity {
 
     @Id
-    @Column(name = "history_id")
+    @Column(name = "investment_sectors_pie_chart_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String sector;
+
+    private Float percentage;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "back_test_id")
@@ -31,7 +33,4 @@ public class History extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "investment_simulation_id")
     private InvestmentSimulation investmentSimulation;
-
-    @OneToMany(mappedBy = "history", cascade = CascadeType.ALL)
-    private List<DayHistory> dayHistories;
 }

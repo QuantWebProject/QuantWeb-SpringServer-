@@ -1,7 +1,8 @@
 package com.quantweb.springserver.domain.graph.entity;
 
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
-import com.quantweb.springserver.domain.stock.entity.Stock;
+import com.quantweb.springserver.domain.back_test.entity.BackTest;
+import com.quantweb.springserver.domain.investment_simulation.entity.InvestmentSimulation;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,11 +24,24 @@ public class Graph extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private GraphType type;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "back_test_id")
+    private BackTest backTest;
 
-    @OneToMany(mappedBy = "graph", fetch = FetchType.LAZY)
-    private List<MyStrategyGraph> myStrategyGraphs;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "investment_simulation_id")
+    private InvestmentSimulation investmentSimulation;
 
-    @OneToOne(mappedBy = "graph", fetch = FetchType.LAZY)
-    private Stock stock;
+    @OneToMany(mappedBy = "graph", cascade = CascadeType.ALL)
+    private List<DailyPercentageUs500> dailyPercentageUs500s;
+
+    @OneToMany(mappedBy = "graph", cascade = CascadeType.ALL)
+    private List<DailyPercentage> dailyPercentages;
+
+    @OneToMany(mappedBy = "graph", cascade = CascadeType.ALL)
+    private List<MddUs500> mddUs500s;
+
+    @OneToMany(mappedBy = "graph", cascade = CascadeType.ALL)
+    private List<Mdd> mdds;
+
 }
