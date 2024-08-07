@@ -1,6 +1,7 @@
 package com.quantweb.springserver.domain.back_test.entity;
 
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
+
 import com.quantweb.springserver.domain.graph.entity.Graph;
 import com.quantweb.springserver.domain.investment_sectors_pie_chart.entity.InvestmentSectorsPieChart;
 import com.quantweb.springserver.domain.sales_transaction_history.entity.SalesTransactionHistory;
@@ -64,9 +65,10 @@ public class BackTest extends BaseTimeEntity {
 
     private LocalDateTime deletedAt;
 
-    private TechnicalStrategy strategy;
+    @Transient
+    private TechnicalAnalysisStrategy strategy;
 
-    @OneToOne(mappedBy = "backTest", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "backTest", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private TechAnalyStrategyVariables variables;
 
     @OneToMany(mappedBy = "backTest", cascade = CascadeType.ALL)
