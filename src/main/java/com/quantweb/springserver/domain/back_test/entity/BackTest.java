@@ -65,6 +65,8 @@ public class BackTest extends BaseTimeEntity {
 
     private LocalDateTime deletedAt;
 
+    private TechnicalStrategy strategy;
+
     @OneToOne(mappedBy = "backTest", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private TechAnalyStrategyVariables variables;
 
