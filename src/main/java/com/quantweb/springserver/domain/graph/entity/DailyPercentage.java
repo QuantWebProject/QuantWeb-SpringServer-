@@ -9,24 +9,24 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Builder
-@Table(name = "my_strategy_graph")
+@Table(name = "daily_percentage")
 @AllArgsConstructor
 @NoArgsConstructor
-public class MyStrategyGraph extends BaseTimeEntity {
+public class DailyPercentage extends BaseTimeEntity {
 
     @Id
-    @Column(name = "my_strategy_graph_id")
+    @Column(name = "daily_percentage_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private BackTest backTest;
+    private LocalDateTime date;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private InvestmentSimulation investmentSimulation;
+    private Float returns;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "graph_id")

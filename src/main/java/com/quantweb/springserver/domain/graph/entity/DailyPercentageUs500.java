@@ -1,8 +1,8 @@
-package com.quantweb.springserver.domain.daily_percentage.entity;
+package com.quantweb.springserver.domain.graph.entity;
 
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
-import com.quantweb.springserver.domain.graph.entity.Graph;
-import com.quantweb.springserver.domain.stock.entity.Stock;
+import com.quantweb.springserver.domain.back_test.entity.BackTest;
+import com.quantweb.springserver.domain.investment_simulation.entity.InvestmentSimulation;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,24 +10,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Getter
 @Builder
-@Table(name = "daily_percentage")
+@Table(name = "daily_percentage_us500")
 @AllArgsConstructor
 @NoArgsConstructor
-public class DailyPercentage extends BaseTimeEntity {
+public class DailyPercentageUs500 extends BaseTimeEntity {
 
     @Id
-    @Column(name = "daily_percentage_id")
+    @Column(name = "daily_percentage_us500_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDateTime date;
 
-    private Float profit;
+    private Float returns;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "graph_id")
