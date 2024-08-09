@@ -73,15 +73,13 @@ public class BackTestService {
 
 
 		// 단계별로 JSON에서 특정 부분을 추출하여 확인
-		//System.out.format("investment_result: %s%n", investmentResultJson.toString());
+		System.out.format("Result: %s%n", jsonObject.toString());
 
 		InvestmentResultDto investmentResultDto = gson.fromJson(investmentResultJson, InvestmentResultDto.class);
 		StrategyInfoDto strategyInfoDto = gson.fromJson(strategyInfoJson, StrategyInfoDto.class	);
 
 		saveBackTest(backTestInput, investmentResultDto, strategyInfoDto);
 
-
-		//return body;
 		return new BackTestResultDto(investmentResultDto,strategyInfoDto);
 	}
 

@@ -13,6 +13,8 @@ import java.util.List;
 @Getter
 @RequiredArgsConstructor
 public class BackTestInput {
+	private String name;
+
 	@SerializedName(value = "strategy_setup")
 	private StrategySetup strategy_setup;
 

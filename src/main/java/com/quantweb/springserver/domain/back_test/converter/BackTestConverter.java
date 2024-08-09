@@ -14,7 +14,7 @@ public class BackTestConverter {
 
         return BackTest.builder()
                 //.user()
-                //.name()
+                .name(backTestInput.getName())
                 .stockNum(backTestInput.getStrategy_setup().getStock_selection())
                 .initInvestmentFund(responseDto.getInitial_amount())
                 .fees(backTestInput.getStrategy_setup().getFee())
