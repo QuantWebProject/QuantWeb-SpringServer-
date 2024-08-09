@@ -3,14 +3,15 @@ package com.quantweb.springserver.domain.back_test.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
-import com.quantweb.springserver.domain.back_test.dto.response.BackTestResponseDto;
-import com.quantweb.springserver.domain.back_test.dto.response.BackTestResultDto;
-import com.quantweb.springserver.domain.back_test.dto.response.StrategyInfoDto;
+import com.quantweb.springserver.domain.back_test.DTO.response.BackTestResponseDto;
+import com.quantweb.springserver.domain.back_test.DTO.response.BackTestResultDto;
+import com.quantweb.springserver.domain.back_test.DTO.response.StrategyInfoDto;
 import com.quantweb.springserver.domain.back_test.converter.BackTestConverter;
 import com.quantweb.springserver.domain.back_test.entity.BackTest;
 import com.quantweb.springserver.domain.graph.converter.GraphConverter;
-import com.quantweb.springserver.domain.graph.entity.Graph;
+import com.quantweb.springserver.domain.graph.entity.*;
 import com.quantweb.springserver.domain.graph.service.GraphService;
 import com.quantweb.springserver.domain.investment_sectors_pie_chart.service.PieChartService;
 import com.quantweb.springserver.domain.sales_transaction_history.service.TransactionHistoryService;
@@ -28,8 +29,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.quantweb.springserver.domain.back_test.dto.request.BackTestInput;
-import com.quantweb.springserver.domain.back_test.dto.response.InvestmentResultDto;
+import com.quantweb.springserver.domain.back_test.DTO.request.BackTestInput;
+import com.quantweb.springserver.domain.back_test.DTO.response.InvestmentResultDto;
 import com.quantweb.springserver.domain.back_test.repository.BackTestRepository;
 import com.quantweb.springserver.utils.LocalDateAdapter;
 import com.quantweb.springserver.utils.LocalDateTimeAdapter;
@@ -110,11 +111,21 @@ public class BackTestService {
 	}
 
 
-    public BackTestResponseDto.BackTestResultDto getDetailsResult(Long backtestId){
+    public BackTestResponseDto.GetBackTestDto getDetailsResult(Long backtestId){
 
-        BackTest backTest = backTestRepository.findById(backtestId).orElseThrow();
+        BackTest findBackTest = backTestRepository.findById(backtestId).orElseThrow();
 
-        BackTestResponseDto.BackTestResultDto backTestResultDto = BackTestConverter.toBackTestResultDto(backTest);
+		Graph findGraph = graphService.getBackTestGraph(backtestId);
+
+		List<DailyPercentage> dailyPercentageList = graphService.getDailyPercentageList(findGraph.getId());
+
+		List<DailyPercentageUs500> dailyPercentageUs500List = graphService.getDailyPercentageUs500List(findGraph.getId());
+
+		List<Mdd> mddList = graphService.getMddList(findGraph.getId());
+
+		List<MddUs500> mddUs500List = graphService.getMddUs500List(findGraph.getId());
+
+		BackTestResponseDto.GetBackTestDto backTestResultDto = BackTestConverter.toBackTestResultDto(findBackTest, dailyPercentageList, dailyPercentageUs500List, mddList, mddUs500List);
 
         return backTestResultDto;
     }

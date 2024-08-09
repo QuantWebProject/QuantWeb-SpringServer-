@@ -1,14 +1,12 @@
-package com.quantweb.springserver.domain.back_test.dto.response;
+package com.quantweb.springserver.domain.back_test.DTO.response;
 
-import com.quantweb.springserver.domain.stock.entity.Stock;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.Primary;
 
-import java.awt.datatransfer.FlavorEvent;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 public class BackTestResponseDto {
@@ -18,21 +16,23 @@ public class BackTestResponseDto {
     @AllArgsConstructor
     @Getter
     @Builder
-    public static class BackTestResultDto{
+    public static class GetBackTestDto {
 
         private Float finalCumulativeReturn;    //누적수익률
+        private Float finalCumulativeReturnUs500;    //누적수익률 Us500
         private DailyCumulativeReturn dailyCumulativeReturn;    //누적수익률 - 그래프
 
         private Float mdd;  //최대 손실
+        private Float mddUs500;  //최대 손실 Us500
         private MaxDrawdownGraph maxDrawdownGraph;  //최대 손실 - 그래프
 
-        private LocalDateTime startDate;    //투자 시작 시간
-        private LocalDateTime endDate;    //투자 끝 시간
+        private LocalDate startDate;    //투자 시작 시간
+        private LocalDate endDate;    //투자 끝 시간
 
-        private Integer finalAsset;    //총자산
-        private Integer initialAmount; //투자원금
-        private Integer evaluatedProfit;    //평가 손익
-        private Integer realizedProfit; //실현손익
+        private Long finalAsset;    //총자산
+        private Long initialAmount; //투자원금
+        private Long unrealizedProfit;    //평가 손익
+        private Long realizedProfit; //실현손익
 
         private Boolean marketShared;   //마켓에 공유 되어있는지
 
@@ -49,7 +49,7 @@ public class BackTestResponseDto {
             @Getter
             @Builder
             public static class BackTestOrUs500 {
-                private LocalDateTime date;
+                private LocalDate date;
                 private Float returns;
             }
         }
@@ -67,7 +67,7 @@ public class BackTestResponseDto {
             @Getter
             @Builder
             public static class BackTestOrUs500 {
-                private LocalDateTime date;
+                private LocalDate date;
                 private Float mdd;
             }
         }

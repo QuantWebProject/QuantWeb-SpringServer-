@@ -1,4 +1,4 @@
-package com.quantweb.springserver.domain.back_test.dto.response;
+package com.quantweb.springserver.domain.back_test.DTO.response;
 
 import java.util.ArrayList;
 import java.util.Map;

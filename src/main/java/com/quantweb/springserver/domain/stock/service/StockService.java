@@ -1,6 +1,6 @@
 package com.quantweb.springserver.domain.stock.service;
 
-import com.quantweb.springserver.domain.back_test.dto.response.StrategyInfoDto;
+import com.quantweb.springserver.domain.back_test.DTO.response.StrategyInfoDto;
 import com.quantweb.springserver.domain.back_test.entity.BackTest;
 import com.quantweb.springserver.domain.stock.converter.StockConverter;
 import com.quantweb.springserver.domain.stock.repository.StockRepository;

@@ -1,8 +1,7 @@
 package com.quantweb.springserver.domain.back_test.controller;
 
-import com.quantweb.springserver.domain.back_test.dto.request.BackTestInput;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.quantweb.springserver.domain.back_test.DTO.request.BackTestInput;
+import org.springframework.web.bind.annotation.*;
 
 import com.quantweb.springserver.domain.auth.config.Authenticated;
 
@@ -16,12 +15,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 
-import com.quantweb.springserver.domain.back_test.dto.response.BackTestResponseDto;
+import com.quantweb.springserver.domain.back_test.DTO.response.BackTestResponseDto;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.function.EntityResponse;
 
 @RestController
@@ -31,13 +27,18 @@ public class BackTestController {
 
 	private final BackTestService backTestService;
 
-	@PostMapping("")
+	@PostMapping
+    @Operation(summary = "백테스트 실행하기 API",description = "")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200",description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "BACKTEST400", description = "백테스트 이름이 중복되었습니다.",content = @Content(schema = @Schema(implementation = EntityResponse.class))),
+    })
 	@Authenticated
 	public Object backTest(@RequestBody BackTestInput backTestInput) {
 		return backTestService.backtestAndSave(backTestInput);
 	}
 
-    @PostMapping("/{backtestId}")
+    @GetMapping("/{backtestId}")
     @Operation(summary = "백테스트 기존 전략 결과 상세 조회 API",description = "")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200",description = "OK, 성공"),
@@ -47,9 +48,9 @@ public class BackTestController {
             @Parameter(name = "backtestId", description = "조회할 백테스트 Id"),
 
     })
-    public ResponseEntity<BackTestResponseDto.BackTestResultDto> getResultDetails(@PathVariable("backtestId") Long backtestId){
+    public ResponseEntity<BackTestResponseDto.GetBackTestDto> getResultDetails(@PathVariable("backtestId") Long backtestId){
 
-        BackTestResponseDto.BackTestResultDto resultDto = backTestService.getDetailsResult(backtestId);
+        BackTestResponseDto.GetBackTestDto resultDto = backTestService.getDetailsResult(backtestId);
 
         return ResponseEntity.ok(resultDto);
     }

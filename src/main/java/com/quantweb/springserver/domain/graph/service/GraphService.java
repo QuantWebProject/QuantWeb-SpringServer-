@@ -1,15 +1,16 @@
 package com.quantweb.springserver.domain.graph.service;
 
-import com.quantweb.springserver.domain.back_test.dto.response.InvestmentResultDto;
+import com.quantweb.springserver.domain.back_test.DTO.response.InvestmentResultDto;
 import com.quantweb.springserver.domain.back_test.entity.BackTest;
 import com.quantweb.springserver.domain.graph.converter.GraphConverter;
-import com.quantweb.springserver.domain.graph.entity.Graph;
+import com.quantweb.springserver.domain.graph.entity.*;
 import com.quantweb.springserver.domain.graph.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -55,5 +56,30 @@ public class GraphService {
         us500.forEach(bt -> {
             mddUs500Repository.save(GraphConverter.toMddUs500(bt,graph));
         });
+    }
+
+    public Graph getBackTestGraph(Long backtestId){
+
+        return graphRepository.findByBackTestId(backtestId);
+    }
+
+    public List<DailyPercentage> getDailyPercentageList(Long graphId){
+
+        return dailyPercentageRepository.findAllByGraphId(graphId);
+    }
+
+    public List<DailyPercentageUs500> getDailyPercentageUs500List(Long graphId){
+
+        return dailyPercentageUs500Repository.findAllByGraphId(graphId);
+    }
+
+    public List<Mdd> getMddList(Long graphId){
+
+        return mddRepository.findAllByGraphId(graphId);
+    }
+
+    public List<MddUs500> getMddUs500List(Long graphId){
+
+        return mddUs500Repository.findAllByGraphId(graphId);
     }
 }
