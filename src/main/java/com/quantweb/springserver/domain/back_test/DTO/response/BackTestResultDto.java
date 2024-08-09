@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BackTestResultDto {
 
-    private InvestmentResultDto investmentResultDto;
-    private StrategyInfoDto strategyInfoDto;
+    private Long backtestId;
+    private String backtestName;
 }

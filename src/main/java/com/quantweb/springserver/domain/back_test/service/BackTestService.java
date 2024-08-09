@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import com.quantweb.springserver.common.exception.CustomErrorCode;
+import com.quantweb.springserver.common.exception.CustomException;
+import com.quantweb.springserver.common.exception.CustomExceptionHandler;
 import com.quantweb.springserver.domain.back_test.DTO.response.BackTestResultDto;
 import com.quantweb.springserver.domain.back_test.DTO.response.StrategyInfoDto;
 import com.quantweb.springserver.domain.back_test.converter.BackTestConverter;
@@ -50,6 +53,11 @@ public class BackTestService {
 
 	@Transactional
 	public BackTestResultDto backtestAndSave(BackTestInput backTestInput) {
+
+		if (backTestRepository.existsByName(backTestInput.getName())) {
+			throw new RuntimeException("이미 사용중인 이름 입니다.");
+		}
+
 		RestTemplate restTemplate = new RestTemplate();
 		String url = "http://ec2-43-203-37-134.ap-northeast-2.compute.amazonaws.com:8000/backtesting";
 		HttpHeaders headers = new HttpHeaders();
@@ -78,12 +86,11 @@ public class BackTestService {
 		InvestmentResultDto investmentResultDto = gson.fromJson(investmentResultJson, InvestmentResultDto.class);
 		StrategyInfoDto strategyInfoDto = gson.fromJson(strategyInfoJson, StrategyInfoDto.class	);
 
-		saveBackTest(backTestInput, investmentResultDto, strategyInfoDto);
-
-		return new BackTestResultDto(investmentResultDto,strategyInfoDto);
+		BackTest newBackTest = saveBackTest(backTestInput, investmentResultDto, strategyInfoDto);
+		return new BackTestResultDto(newBackTest.getId(), newBackTest.getName());
 	}
 
-	private void saveBackTest(BackTestInput backTestInput, InvestmentResultDto investmentResultDto, StrategyInfoDto strategyInfoDto) {
+	private BackTest saveBackTest(BackTestInput backTestInput, InvestmentResultDto investmentResultDto, StrategyInfoDto strategyInfoDto) {
 		BackTest newBackTest = BackTestConverter.toBackTest(backTestInput, investmentResultDto);
 
 		Graph graph = GraphConverter.toBackTestGraph(newBackTest);
@@ -100,6 +107,8 @@ public class BackTestService {
 		stockService.saveStock(strategyInfoDto.getStock(),newBackTest);
 
 		backTestRepository.save(newBackTest);
+
+		return newBackTest;
 	}
 
 }
