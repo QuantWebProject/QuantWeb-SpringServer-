@@ -1,15 +1,14 @@
 package com.quantweb.springserver.domain.graph.entity;
 
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
-import com.quantweb.springserver.domain.back_test.entity.BackTest;
-import com.quantweb.springserver.domain.investment_simulation.entity.InvestmentSimulation;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -24,7 +23,7 @@ public class DailyPercentage extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime date;
+    private LocalDate date;
 
     private Float returns;
 

@@ -66,7 +66,7 @@ public class InvestmentSimulation extends BaseTimeEntity {
 
     private LocalDateTime deletedAt;
 
-    private TechnicalStrategy technicalAnalysisStrategy;
+    private TechnicalStrategy technicalStrategy;
 
     @OneToOne(mappedBy = "investmentSimulation", fetch = FetchType.LAZY)
     private TechAnalyStrategyVariables variables;

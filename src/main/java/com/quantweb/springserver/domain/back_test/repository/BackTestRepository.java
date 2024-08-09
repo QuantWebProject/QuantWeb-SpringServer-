@@ -6,4 +6,6 @@ import com.quantweb.springserver.domain.back_test.entity.BackTest;
 
 public interface BackTestRepository extends JpaRepository<BackTest, Long> {
 
+    Boolean existsByName(String name);
+
 }

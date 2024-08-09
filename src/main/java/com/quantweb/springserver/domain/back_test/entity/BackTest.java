@@ -16,6 +16,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -36,36 +37,33 @@ public class BackTest extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @NotNull
     private String name;
 
     private Integer stockNum;
 
-    private Integer initInvestmentFund;
+    private Long initInvestmentFund;
 
-    private Integer fees;
+    private Float fees;
 
-    private Integer rebalancePeriod;
+    private String rebalancePeriod;
 
-    @NotNull
-    private LocalDateTime investStartDate;
+    private LocalDate investStartDate;
 
-    @NotNull
-    private LocalDateTime investEndDate;
+    private LocalDate investEndDate;
 
     private Float yearlyAverageProfit;
 
-    private Float realizedProfit;
+    private Long realizedProfit;
 
-    private Float evaluatedProfitLoss;
+    private Long unrealized_profit;
 
-    private Integer finalAsset;
+    private Long finalAsset;
 
     private Boolean marketShared;
 
     private LocalDateTime deletedAt;
 
-    private TechnicalStrategy strategy;
+    private TechnicalStrategy technicalStrategy;
 
     @OneToOne(mappedBy = "backTest", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private TechAnalyStrategyVariables variables;
