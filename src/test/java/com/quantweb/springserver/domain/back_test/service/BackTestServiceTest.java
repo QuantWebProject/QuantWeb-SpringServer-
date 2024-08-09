@@ -3,6 +3,7 @@ package com.quantweb.springserver.domain.back_test.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.quantweb.springserver.domain.back_test.DTO.response.BackTestResultDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,8 +14,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import com.quantweb.springserver.domain.back_test.DTO.BackTestInput;
-import com.quantweb.springserver.domain.back_test.DTO.InvestmentResult;
+import com.quantweb.springserver.domain.back_test.DTO.request.BackTestInput;
+import com.quantweb.springserver.domain.back_test.DTO.response.InvestmentResultDto;
 import com.quantweb.springserver.utils.LocalDateAdapter;
 import com.quantweb.springserver.utils.LocalDateTimeAdapter;
 
@@ -101,8 +102,8 @@ class BackTestServiceTest {
 			.create();
 		BackTestInput backTestInput = gson.fromJson(json, BackTestInput.class);
 		System.out.println(backTestInput);
-		InvestmentResult investmentResult = backTestService.backtestAndSave(backTestInput);
-		System.out.println(gson.toJson(investmentResult));
+		BackTestResultDto investmentResultDto = backTestService.backtestAndSave(backTestInput);
+		System.out.println(gson.toJson(investmentResultDto));
 
 
 	}
@@ -206,10 +207,10 @@ class BackTestServiceTest {
 			JsonObject investmentResultJson = jsonObject.getAsJsonObject("investment_result");
 
 			// 단계별로 JSON에서 특정 부분을 추출하여 확인
-			System.out.println("investment_result: " + investmentResultJson.toString());
+			//System.out.println("investment_result: " + investmentResultJson.toString());
 
-			InvestmentResult investmentResult = gson.fromJson(investmentResultJson, InvestmentResult.class);
-			System.out.println("InvestmentResult: " + gson.toJson(investmentResult));
+			InvestmentResultDto investmentResultDto = gson.fromJson(investmentResultJson, InvestmentResultDto.class);
+			//System.out.println("InvestmentResult: " + gson.toJson(backTestResponseDto));
 		} catch (JsonSyntaxException e) {
 			e.printStackTrace();
 		}
