@@ -63,6 +63,7 @@ public class BackTest extends BaseTimeEntity {
 
     private LocalDateTime deletedAt;
 
+    @Enumerated(EnumType.STRING)
     private TechnicalStrategy technicalStrategy;
 
     @OneToOne(mappedBy = "backTest", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
