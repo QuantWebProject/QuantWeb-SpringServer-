@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ValueInvestmentStrategy {
 
-    private List<Option> options;
+  private List<Option> options;
 
-    @Getter
-    @Builder
-    @AllArgsConstructor
-    public static class Option {
-        private String factor;
-        private List<Integer> percent;
-        private List<Float> range;
-    }
+  @Getter
+  @Builder
+  @AllArgsConstructor
+  public static class Option {
+    private String factor;
+    private List<Integer> percent;
+    private List<Float> range;
+  }
 }

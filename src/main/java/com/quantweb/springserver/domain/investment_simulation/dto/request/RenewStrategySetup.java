@@ -8,12 +8,12 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class RenewStrategySetup {
-    private String strategyName;
-    private int stockSelection;
-    private int initialAmount;
-    private float fee;
-    private String rebalancingPeriod;
-    private String ohlcv;
-    private String backtestStrategy;
-    private TechnicalAnalysisStrategy technicalAnalysisStrategy;
+  private String strategyName;
+  private int stockSelection;
+  private int initialAmount;
+  private float fee;
+  private String rebalancingPeriod;
+  private String ohlcv;
+  private String backtestStrategy;
+  private TechnicalAnalysisStrategy technicalAnalysisStrategy;
 }

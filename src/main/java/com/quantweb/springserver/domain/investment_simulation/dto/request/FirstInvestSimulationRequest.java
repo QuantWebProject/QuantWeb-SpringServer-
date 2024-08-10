@@ -8,14 +8,14 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class FirstInvestSimulationRequest {
-    private int stockSelection;
-    private String strategyName;
-    private String startDate;
-    private String endDate;
-    private String initialAmount;
-    private String fee;
-    private String rebalancingPeriod;
-    private String backtestStrategy;
-    private FirstStrategySetup technicalAnalysisStrategy;
-    private List<ValueInvestingStrategy> valueInvestmentStrategy;
+  private int stockSelection;
+  private String strategyName;
+  private String startDate;
+  private String endDate;
+  private String initialAmount;
+  private String fee;
+  private String rebalancingPeriod;
+  private String backtestStrategy;
+  private FirstStrategySetup technicalAnalysisStrategy;
+  private List<ValueInvestingStrategy> valueInvestmentStrategy;
 }

@@ -1,6 +1,5 @@
 package com.quantweb.springserver.domain.tech_analy_strategy_variables.entity;
 
-import com.quantweb.springserver.domain.user.user_status.UserStatus;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 

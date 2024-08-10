@@ -19,15 +19,17 @@ public class InvestSimulationController {
   private final InvestSimulationService investSimulationService;
 
   @GetMapping("/first")
-  public ResponseEntity<?> firstInvestSimulation(@AuthenticationPrincipal Long userId, @RequestBody FirstInvestSimulationRequest request) {
-     investSimulationService.firstInvestSimulation(userId,request);
+  public ResponseEntity<?> firstInvestSimulation(
+      @AuthenticationPrincipal Long userId, @RequestBody FirstInvestSimulationRequest request) {
+    investSimulationService.firstInvestSimulation(userId, request);
 
     return ResponseEntity.ok().build();
   }
 
   @GetMapping("/renew")
-  public ResponseEntity<?> renewInvestSimulation(@AuthenticationPrincipal Long userId, @RequestBody RenewInvestSimulationRequest request) {
-    investSimulationService.renewInvestSimulation(userId,request);
+  public ResponseEntity<?> renewInvestSimulation(
+      @AuthenticationPrincipal Long userId, @RequestBody RenewInvestSimulationRequest request) {
+    investSimulationService.renewInvestSimulation(userId, request);
 
     return ResponseEntity.ok().build();
   }

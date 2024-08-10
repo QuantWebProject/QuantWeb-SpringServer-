@@ -19,16 +19,22 @@ public class InvestSimulationService {
   private final UserRepository userRepository;
 
   public void firstInvestSimulation(Long userId, FirstInvestSimulationRequest request) {
-    User user = userRepository.findById(userId)
-        .orElseThrow(() -> new IllegalArgumentException("User not found"));
-    FirstFastApiInvestSimulationResponse firstFastApiInvestSimulationResponse = investSimulationConnector.requestFirstInvestSimulation(user,request);
+    User user =
+        userRepository
+            .findById(userId)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    FirstFastApiInvestSimulationResponse firstFastApiInvestSimulationResponse =
+        investSimulationConnector.requestFirstInvestSimulation(user, request);
   }
 
   public void renewInvestSimulation(Long userId, RenewInvestSimulationRequest request) {
-    User user = userRepository.findById(userId)
+    User user =
+        userRepository
+            .findById(userId)
             .orElseThrow(() -> new IllegalArgumentException("User not found"));
     float fee = 0;
     int initialAmount = 0;
-    RenewFastApiInvestSimulationResponse renewFastApiInvestSimulationResponse = investSimulationConnector.requestRenewInvestSimulation(user,request, initialAmount,fee);
+    RenewFastApiInvestSimulationResponse renewFastApiInvestSimulationResponse =
+        investSimulationConnector.requestRenewInvestSimulation(user, request, initialAmount, fee);
   }
 }

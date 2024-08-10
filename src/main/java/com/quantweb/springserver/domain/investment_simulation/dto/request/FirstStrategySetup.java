@@ -8,11 +8,11 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class FirstStrategySetup {
-    private String strategyName;
-    private int stockSelection;
-    private String rebalancingPeriod;
-    private String ohlcv;
-    private String backtestStrategy;
-    private TechnicalAnalysisStrategy technicalAnalysisStrategy;
-    private ValueInvestmentStrategy valueInvestmentStrategy;
+  private String strategyName;
+  private int stockSelection;
+  private String rebalancingPeriod;
+  private String ohlcv;
+  private String backtestStrategy;
+  private TechnicalAnalysisStrategy technicalAnalysisStrategy;
+  private ValueInvestmentStrategy valueInvestmentStrategy;
 }
