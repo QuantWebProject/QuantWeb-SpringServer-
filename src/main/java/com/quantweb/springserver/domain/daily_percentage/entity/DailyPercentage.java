@@ -27,7 +27,7 @@ public class DailyPercentage extends BaseTimeEntity {
 
     private LocalDateTime date;
 
-    private Float profit;
+    private Float profit; // 누적수익률
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "graph_id")

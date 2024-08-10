@@ -36,31 +36,31 @@ public class InvestmentSimulation extends BaseTimeEntity {
     private User user;
 
     @NotNull
-    private String name;
+    private String name; // 투자 시뮬레이션 이름
 
-    private Integer stockNum;
+    private Integer stockNum; // 종목 개수
 
-    private Integer initInvestmentFund;
+    private Integer initInvestmentFund; // 투자 원금
 
-    private Integer fees;
+//    private Integer fees;
 
-    private Integer rebalancePeriod;
+    private Integer rebalancePeriod; // 리벨런싱 주기
 
-    @NotNull
-    private LocalDateTime investStartDate;
+//    @NotNull
+//    private LocalDateTime investStartDate;
+//
+//    @NotNull
+//    private LocalDateTime investEndDate;
 
-    @NotNull
-    private LocalDateTime investEndDate;
+    private Float yearlyAverageProfit; // 연평균 수익률 = 최종수익률/투자기간
 
-    private Float yearlyAverageProfit;
+    private Float realizedProfit; // 실현수익 = 매도수익 - 매수수수료
 
-    private Float realizedProfit;
+    private Float evaluatedProfitLoss; // 평가손익 = 현재가격 - 매수가격
 
-    private Float evaluatedProfitLoss;
+    private Integer currentInvestmentFund; // 현재 투자금액 = 매수가격 * 보유수량
 
-    private Integer currentInvestmentFund;
-
-    private Boolean marketShared;
+    private Boolean marketShared; // 투자비중
 
     private TechnicalStrategy strategy;
 
