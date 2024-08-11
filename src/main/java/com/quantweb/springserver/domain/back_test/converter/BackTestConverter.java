@@ -11,6 +11,7 @@ import com.quantweb.springserver.domain.graph.entity.DailyPercentage;
 import com.quantweb.springserver.domain.graph.entity.DailyPercentageUs500;
 import com.quantweb.springserver.domain.graph.entity.Mdd;
 import com.quantweb.springserver.domain.graph.entity.MddUs500;
+import com.quantweb.springserver.domain.user.entity.User;
 
 import java.time.LocalDate;
 
@@ -20,10 +21,10 @@ import java.util.stream.Collectors;
 
 public class BackTestConverter {
 
-    public static BackTest toBackTest(BackTestInput backTestInput, InvestmentResultDto responseDto){
+    public static BackTest toBackTest(User user, BackTestInput backTestInput, InvestmentResultDto responseDto){
 
         return BackTest.builder()
-                //.user()
+                .user(user)
                 .name(backTestInput.getName())
                 .stockNum(backTestInput.getStrategy_setup().getStock_selection())
                 .initInvestmentFund(responseDto.getInitial_amount())

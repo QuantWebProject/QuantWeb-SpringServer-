@@ -1,5 +1,6 @@
 package com.quantweb.springserver.domain.back_test.controller;
 
+import com.quantweb.springserver.domain.auth.config.AuthenticationPrincipal;
 import com.quantweb.springserver.domain.back_test.DTO.request.BackTestInput;
 import com.quantweb.springserver.domain.stock.dto.response.StockResponseDto;
 import com.quantweb.springserver.domain.stock.service.StockService;
@@ -37,8 +38,8 @@ public class BackTestController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "BACKTEST400", description = "백테스트 이름이 중복되었습니다.",content = @Content(schema = @Schema(implementation = EntityResponse.class))),
     })
 	@Authenticated
-	public Object backTest(@RequestBody BackTestInput backTestInput) {
-		return backTestService.backtestAndSave(backTestInput);
+	public Object backTest(@AuthenticationPrincipal Long userId, @RequestBody BackTestInput backTestInput) {
+		return backTestService.backtestAndSave(userId, backTestInput);
 	}
 
     @GetMapping("/{backtestId}")

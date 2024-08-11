@@ -16,6 +16,8 @@ import com.quantweb.springserver.domain.graph.service.GraphService;
 import com.quantweb.springserver.domain.investment_sectors_pie_chart.service.PieChartService;
 import com.quantweb.springserver.domain.sales_transaction_history.service.TransactionHistoryService;
 import com.quantweb.springserver.domain.stock.service.StockService;
+import com.quantweb.springserver.domain.user.entity.User;
+import com.quantweb.springserver.domain.user.entity.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -43,6 +45,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class BackTestService {
 
+	private final UserRepository userRepository;
 	private final BackTestRepository backTestRepository;
 
 	private final GraphService graphService;
@@ -51,7 +54,9 @@ public class BackTestService {
 	private final StockService stockService;
 
 	@Transactional
-	public BackTestResultDto backtestAndSave(BackTestInput backTestInput) {
+	public BackTestResultDto backtestAndSave(Long userId, BackTestInput backTestInput) {
+
+		User findUser = userRepository.findById(userId).orElseThrow(()-> new RuntimeException("사용자 정보가 존재하지 않습니다."));
 
 		if (backTestRepository.existsByName(backTestInput.getName())) {
 			throw new RuntimeException("이미 사용중인 이름 입니다.");
@@ -85,12 +90,12 @@ public class BackTestService {
 		InvestmentResultDto investmentResultDto = gson.fromJson(investmentResultJson, InvestmentResultDto.class);
 		StrategyInfoDto strategyInfoDto = gson.fromJson(strategyInfoJson, StrategyInfoDto.class	);
 
-		BackTest newBackTest = saveBackTest(backTestInput, investmentResultDto, strategyInfoDto);
+		BackTest newBackTest = saveBackTest(findUser, backTestInput, investmentResultDto, strategyInfoDto);
 		return new BackTestResultDto(newBackTest.getId(), newBackTest.getName());
 	}
 
-	private BackTest saveBackTest(BackTestInput backTestInput, InvestmentResultDto investmentResultDto, StrategyInfoDto strategyInfoDto) {
-		BackTest newBackTest = BackTestConverter.toBackTest(backTestInput, investmentResultDto);
+	private BackTest saveBackTest(User user, BackTestInput backTestInput, InvestmentResultDto investmentResultDto, StrategyInfoDto strategyInfoDto) {
+		BackTest newBackTest = BackTestConverter.toBackTest(user, backTestInput, investmentResultDto);
 
 		Graph graph = GraphConverter.toBackTestGraph(newBackTest);
 
