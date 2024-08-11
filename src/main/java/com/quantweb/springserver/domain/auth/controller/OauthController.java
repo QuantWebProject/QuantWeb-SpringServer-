@@ -7,6 +7,7 @@ import com.quantweb.springserver.domain.auth.service.OauthService;
 import com.quantweb.springserver.domain.auth.service.dto.response.AccessTokenResponse;
 import com.quantweb.springserver.domain.auth.service.dto.response.LoginResponse;
 import com.quantweb.springserver.domain.auth.service.dto.response.OauthLinkResponse;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -42,8 +43,11 @@ public class OauthController {
       @RequestParam String redirectUrl) {
     LoginResponse loginResponse = oauthService.requestAccessToken(type, code, redirectUrl);
 
-    response.addCookie(loginResponse.getAccessToken());
-    response.addCookie(loginResponse.getRefreshToken());
+    String accessCookieHeader = setCookieHeader(loginResponse.getAccessToken());
+    String refreshCookieHeader = setCookieHeader(loginResponse.getRefreshToken());
+
+    response.addHeader("Set-Cookie", accessCookieHeader);
+    response.addHeader("Set-Cookie", refreshCookieHeader);
 
     return ResponseEntity.ok().build();
   }
@@ -60,7 +64,9 @@ public class OauthController {
   public ResponseEntity<Void> reissueAccessToken(
       HttpServletResponse response, @AuthenticationRefreshPrincipal Long memberId) {
     AccessTokenResponse accessToken = oauthService.reissueAccessToken(memberId);
-    response.addCookie(accessToken.getAccessToken());
+
+    String accessCookieHeader = setCookieHeader(accessToken.getAccessToken());
+    response.addHeader("Set-Cookie", accessCookieHeader);
 
     return ResponseEntity.ok().build();
   }
@@ -74,5 +80,10 @@ public class OauthController {
     oauthService.syncLogin(memberId, type, code, redirectUrl);
 
     return ResponseEntity.ok().build();
+  }
+
+  private String setCookieHeader(Cookie cookie) {
+    return String.format("%s=%s; Path=%s; Max-Age=%d; Secure; HttpOnly; SameSite=None",
+            cookie.getName(), cookie.getValue(), cookie.getPath(), cookie.getMaxAge());
   }
 }
