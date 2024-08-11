@@ -1,6 +1,8 @@
 package com.quantweb.springserver.domain.back_test.controller;
 
 import com.quantweb.springserver.domain.back_test.DTO.request.BackTestInput;
+import com.quantweb.springserver.domain.stock.dto.response.StockResponseDto;
+import com.quantweb.springserver.domain.stock.service.StockService;
 import org.springframework.web.bind.annotation.*;
 
 import com.quantweb.springserver.domain.auth.config.Authenticated;
@@ -26,6 +28,7 @@ import org.springframework.web.servlet.function.EntityResponse;
 public class BackTestController {
 
 	private final BackTestService backTestService;
+    private final StockService stockService;
 
 	@PostMapping
     @Operation(summary = "백테스트 실행하기 API",description = "")
@@ -55,4 +58,22 @@ public class BackTestController {
         return ResponseEntity.ok(resultDto);
     }
 
+
+    @GetMapping("/{backtestId}/sectors")
+    @Operation(summary = "백테스트 투자 종목 조회 API",description = "")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200",description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "BACKTEST404", description = "백테스트가 존재하지 않습니다.",content = @Content(schema = @Schema(implementation = EntityResponse.class))),
+    })
+    @Parameters({
+            @Parameter(name = "backtestId", description = "조회할 백테스트 Id"),
+
+    })
+    @Authenticated
+    public ResponseEntity<StockResponseDto> getInvestmentSectors(@PathVariable("backtestId") Long backtestId){
+
+        StockResponseDto resultDto = stockService.getInvestmentSectors(backtestId);
+
+        return ResponseEntity.ok(resultDto);
+    }
 }

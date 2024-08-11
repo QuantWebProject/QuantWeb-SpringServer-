@@ -2,7 +2,12 @@ package com.quantweb.springserver.domain.stock.converter;
 
 import com.quantweb.springserver.domain.back_test.DTO.response.StrategyInfoDto;
 import com.quantweb.springserver.domain.back_test.entity.BackTest;
+import com.quantweb.springserver.domain.investment_sectors_pie_chart.entity.InvestmentSectorsPieChart;
+import com.quantweb.springserver.domain.stock.dto.response.StockResponseDto;
 import com.quantweb.springserver.domain.stock.entity.Stock;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class StockConverter {
 
@@ -17,18 +22,19 @@ public class StockConverter {
                 .build();
     }
 
+    public static StockResponseDto toStockResponseDto(List<Stock> stocks, List<InvestmentSectorsPieChart> pieCharts){
 
-public class StockConverter {
+        List<StockResponseDto.StockRatio> stockRatioList = stocks.stream()
+                .map(st -> new StockResponseDto.StockRatio(st.getStockName(), st.getSector(), st.getPercentage()))
+                .toList();
 
-    public static StockResponseDto toStockResponseDto(){
-
-        List<StockResponseDto.StockRatio> stockRatioList;
-
-        List<StockResponseDto.InvestmentSectorsPieChart> charts;
+        List<StockResponseDto.InvestmentSectorsPieChart> charts = pieCharts.stream()
+                .map(pc -> new StockResponseDto.InvestmentSectorsPieChart(pc.getSector(), pc.getPercentage()))
+                .toList();
 
         return StockResponseDto.builder()
-                .stocks()
-                .investmentSectorsPieChart()
+                .stocks(stockRatioList)
+                .investmentSectorsPieChart(charts)
                 .build();
     }
 }
