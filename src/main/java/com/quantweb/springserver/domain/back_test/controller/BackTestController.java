@@ -8,6 +8,10 @@ import com.quantweb.springserver.domain.back_test.DTO.response.BackTestResponseD
 
 import com.quantweb.springserver.domain.stock.dto.response.StockResponseDto;
 import com.quantweb.springserver.domain.stock.service.StockService;
+
+import com.quantweb.springserver.domain.sales_transaction_history.dto.response.TransactionHistoryResponseDto;
+import com.quantweb.springserver.domain.sales_transaction_history.service.TransactionHistoryService;
+
 import org.springframework.web.bind.annotation.*;
 
 import com.quantweb.springserver.domain.auth.config.Authenticated;
@@ -35,6 +39,7 @@ public class BackTestController {
 
 	private final BackTestService backTestService;
     private final StockService stockService;
+    private final TransactionHistoryService transactionHistoryService;
 
 	@PostMapping("/{userId}")
     @Operation(summary = "백테스트 실행하기 API",description = "")
@@ -43,8 +48,8 @@ public class BackTestController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "BACKTEST400", description = "백테스트 이름이 중복되었습니다.",content = @Content(schema = @Schema(implementation = EntityResponse.class))),
     })
 	@Authenticated
-	public Object backTest(@AuthenticationPrincipal @PathVariable("userId") Long userId, @RequestBody BackTestInput backTestInput) {
-		return backTestService.backtestAndSave(userId, backTestInput);
+	public ResponseEntity<BackTestResponseDto> backTest(@AuthenticationPrincipal @PathVariable("userId") Long userId, @RequestBody BackTestInput backTestInput) {
+		return ResponseEntity.ok(backTestService.backtestAndSave(userId, backTestInput));
 	}
 
     @GetMapping("/{backtestId}/details")
@@ -57,6 +62,7 @@ public class BackTestController {
             @Parameter(name = "backtestId", description = "조회할 백테스트 Id"),
 
     })
+    @Authenticated
     public ResponseEntity<BackTestDetailsDto.GetBackTestDto> getResultDetails(@PathVariable("backtestId") Long backtestId){
 
         BackTestDetailsDto.GetBackTestDto resultDto = backTestService.getDetailsResult(backtestId);
@@ -97,6 +103,24 @@ public class BackTestController {
     public ResponseEntity<List<BackTestResponseDto>> getMyBacktests(@PathVariable("userId") Long userId){
 
         List<BackTestResponseDto> resultDto = backTestService.getMyBacktests(userId);
+
+        return ResponseEntity.ok(resultDto);
+    }
+
+    @GetMapping("/{backtestId}/histories")
+    @Operation(summary = "백테스트 매매내역 조회 API",description = "")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200",description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "BACKTEST404", description = "백테스트가 존재하지 않습니다.",content = @Content(schema = @Schema(implementation = EntityResponse.class))),
+    })
+    @Parameters({
+            @Parameter(name = "backtestId", description = "조회할 백테스트 Id"),
+
+    })
+    @Authenticated
+    public ResponseEntity<TransactionHistoryResponseDto> getTrasactionHistory(@PathVariable("backtestId") Long backtestId){
+
+        TransactionHistoryResponseDto resultDto = transactionHistoryService.getTransactionHistory(backtestId);
 
         return ResponseEntity.ok(resultDto);
     }

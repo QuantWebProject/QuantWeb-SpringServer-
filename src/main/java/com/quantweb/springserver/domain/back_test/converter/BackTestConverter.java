@@ -43,24 +43,10 @@ public class BackTestConverter {
                 .build();
     }
 
-//    public static BackTestDetailsDto.BackTestResponseDto toBackTestResultDto(BackTest backTest){
-//
-//        return BackTestDetailsDto.BackTestResponseDto.builder()
-////                .accumulatedProfit(backTest.getRealizedProfit())
-////                .mdd()
-////                .totalAssest()
-////                .initInvestFund()
-////                .evaluatedProfit()
-////                .realizedProfit()
-////                .marketShared()
-////                .investCategories()
-//                .build();
-//    }
-
 
     public static BackTestDetailsDto.GetBackTestDto toBackTestResultDto(BackTest backTest,
-                                                                        List<DailyPercentage> dailyPercentages, List<DailyPercentageUs500> dailyPercentageUs500s,
-                                                                        List<Mdd> mdds, List<MddUs500> mddUs500s){
+                                                                         List<DailyPercentage> dailyPercentages, List<DailyPercentageUs500> dailyPercentageUs500s,
+                                                                         List<Mdd> mdds, List<MddUs500> mddUs500s){
 
         BackTestDetailsDto.GetBackTestDto.DailyCumulativeReturn dailyCumulativeReturn = toDailyCumulativeReturn(dailyPercentages, dailyPercentageUs500s);
 
