@@ -5,8 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.quantweb.springserver.domain.back_test.DTO.response.BackTestDetailsDto;
 import com.quantweb.springserver.domain.back_test.DTO.response.BackTestResponseDto;
-import com.quantweb.springserver.domain.back_test.DTO.response.BackTestResultDto;
 import com.quantweb.springserver.domain.back_test.DTO.response.StrategyInfoDto;
 import com.quantweb.springserver.domain.back_test.converter.BackTestConverter;
 import com.quantweb.springserver.domain.back_test.entity.BackTest;
@@ -54,7 +54,7 @@ public class BackTestService {
 	private final StockService stockService;
 
 	@Transactional
-	public BackTestResultDto backtestAndSave(Long userId, BackTestInput backTestInput) {
+	public BackTestResponseDto backtestAndSave(Long userId, BackTestInput backTestInput) {
 
 		User findUser = userRepository.findById(userId).orElseThrow(()-> new RuntimeException("사용자 정보가 존재하지 않습니다."));
 
@@ -91,7 +91,7 @@ public class BackTestService {
 		StrategyInfoDto strategyInfoDto = gson.fromJson(strategyInfoJson, StrategyInfoDto.class	);
 
 		BackTest newBackTest = saveBackTest(findUser, backTestInput, investmentResultDto, strategyInfoDto);
-		return new BackTestResultDto(newBackTest.getId(), newBackTest.getName());
+		return new BackTestResponseDto(newBackTest.getId(), newBackTest.getName());
 	}
 
 	private BackTest saveBackTest(User user, BackTestInput backTestInput, InvestmentResultDto investmentResultDto, StrategyInfoDto strategyInfoDto) {
@@ -116,7 +116,7 @@ public class BackTestService {
 	}
 
 
-    public BackTestResponseDto.GetBackTestDto getDetailsResult(Long backtestId){
+    public BackTestDetailsDto.GetBackTestDto getDetailsResult(Long backtestId){
 
         BackTest findBackTest = backTestRepository.findById(backtestId).orElseThrow();
 
@@ -130,10 +130,16 @@ public class BackTestService {
 
 		List<MddUs500> mddUs500List = graphService.getMddUs500List(findGraph.getId());
 
-		BackTestResponseDto.GetBackTestDto backTestResultDto = BackTestConverter.toBackTestResultDto(findBackTest, dailyPercentageList, dailyPercentageUs500List, mddList, mddUs500List);
+		BackTestDetailsDto.GetBackTestDto backTestResultDto = BackTestConverter.toBackTestResultDto(findBackTest, dailyPercentageList, dailyPercentageUs500List, mddList, mddUs500List);
 
         return backTestResultDto;
     }
 
 
+	public List<BackTestResponseDto> getMyBacktests(Long userId){
+
+		List<BackTest> backTests = backTestRepository.findAllByUserId(userId).orElseThrow(()->new RuntimeException("유저 정보가 존재하지 않습니다."));
+
+		return BackTestConverter.toBackTestList(backTests);
+	}
 }

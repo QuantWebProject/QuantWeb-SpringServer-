@@ -3,7 +3,6 @@ package com.quantweb.springserver.domain.back_test.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.quantweb.springserver.domain.back_test.DTO.response.BackTestResultDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +13,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import com.quantweb.springserver.domain.back_test.DTO.request.BackTestInput;
 import com.quantweb.springserver.domain.back_test.DTO.response.InvestmentResultDto;
 import com.quantweb.springserver.utils.LocalDateAdapter;
 import com.quantweb.springserver.utils.LocalDateTimeAdapter;
@@ -102,7 +100,7 @@ class BackTestServiceTest {
 //			.create();
 //		BackTestInput backTestInput = gson.fromJson(json, BackTestInput.class);
 //		System.out.println(backTestInput);
-//		BackTestResultDto investmentResultDto = backTestService.backtestAndSave(backTestInput);
+//		BackTestResponseDto investmentResultDto = backTestService.backtestAndSave(backTestInput);
 //		System.out.println(gson.toJson(investmentResultDto));
 //
 //

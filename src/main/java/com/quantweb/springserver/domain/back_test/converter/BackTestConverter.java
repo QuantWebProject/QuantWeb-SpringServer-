@@ -2,6 +2,7 @@ package com.quantweb.springserver.domain.back_test.converter;
 
 
 import com.quantweb.springserver.domain.back_test.DTO.request.BackTestInput;
+import com.quantweb.springserver.domain.back_test.DTO.response.BackTestDetailsDto;
 import com.quantweb.springserver.domain.back_test.DTO.response.BackTestResponseDto;
 import com.quantweb.springserver.domain.back_test.DTO.response.InvestmentResultDto;
 
@@ -42,9 +43,9 @@ public class BackTestConverter {
                 .build();
     }
 
-//    public static BackTestResponseDto.BackTestResultDto toBackTestResultDto(BackTest backTest){
+//    public static BackTestDetailsDto.BackTestResponseDto toBackTestResultDto(BackTest backTest){
 //
-//        return BackTestResponseDto.BackTestResultDto.builder()
+//        return BackTestDetailsDto.BackTestResponseDto.builder()
 ////                .accumulatedProfit(backTest.getRealizedProfit())
 ////                .mdd()
 ////                .totalAssest()
@@ -57,15 +58,15 @@ public class BackTestConverter {
 //    }
 
 
-    public static BackTestResponseDto.GetBackTestDto toBackTestResultDto(BackTest backTest,
-                                                                         List<DailyPercentage> dailyPercentages, List<DailyPercentageUs500> dailyPercentageUs500s,
-                                                                         List<Mdd> mdds, List<MddUs500> mddUs500s){
+    public static BackTestDetailsDto.GetBackTestDto toBackTestResultDto(BackTest backTest,
+                                                                        List<DailyPercentage> dailyPercentages, List<DailyPercentageUs500> dailyPercentageUs500s,
+                                                                        List<Mdd> mdds, List<MddUs500> mddUs500s){
 
-        BackTestResponseDto.GetBackTestDto.DailyCumulativeReturn dailyCumulativeReturn = toDailyCumulativeReturn(dailyPercentages, dailyPercentageUs500s);
+        BackTestDetailsDto.GetBackTestDto.DailyCumulativeReturn dailyCumulativeReturn = toDailyCumulativeReturn(dailyPercentages, dailyPercentageUs500s);
 
-        BackTestResponseDto.GetBackTestDto.MaxDrawdownGraph maxDrawdownGraph = toMaxDrawdownGraph(mdds, mddUs500s);
+        BackTestDetailsDto.GetBackTestDto.MaxDrawdownGraph maxDrawdownGraph = toMaxDrawdownGraph(mdds, mddUs500s);
 
-        return BackTestResponseDto.GetBackTestDto.builder()
+        return BackTestDetailsDto.GetBackTestDto.builder()
                 .dailyCumulativeReturn(dailyCumulativeReturn)
                 .finalCumulativeReturn(dailyCumulativeReturn.getBackTest().get(dailyCumulativeReturn.getBackTest().size()-1).getReturns())
                 .finalCumulativeReturnUs500(dailyCumulativeReturn.getUs500().get(dailyCumulativeReturn.getUs500().size()-1).getReturns())
@@ -83,41 +84,48 @@ public class BackTestConverter {
     }
 
     //누적 수익률
-    public static BackTestResponseDto.GetBackTestDto.DailyCumulativeReturn toDailyCumulativeReturn(List<DailyPercentage> dailyPercentages, List<DailyPercentageUs500> dailyPercentageUs500s){
+    public static BackTestDetailsDto.GetBackTestDto.DailyCumulativeReturn toDailyCumulativeReturn(List<DailyPercentage> dailyPercentages, List<DailyPercentageUs500> dailyPercentageUs500s){
 
-        List<BackTestResponseDto.GetBackTestDto.DailyCumulativeReturn.BackTestOrUs500> backtest = dailyPercentages.stream()
-                .map(dp -> new BackTestResponseDto.GetBackTestDto.DailyCumulativeReturn.BackTestOrUs500(dp.getDate(),dp.getReturns()))
-                .sorted(Comparator.comparing(BackTestResponseDto.GetBackTestDto.DailyCumulativeReturn.BackTestOrUs500::getDate))
+        List<BackTestDetailsDto.GetBackTestDto.DailyCumulativeReturn.BackTestOrUs500> backtest = dailyPercentages.stream()
+                .map(dp -> new BackTestDetailsDto.GetBackTestDto.DailyCumulativeReturn.BackTestOrUs500(dp.getDate(),dp.getReturns()))
+                .sorted(Comparator.comparing(BackTestDetailsDto.GetBackTestDto.DailyCumulativeReturn.BackTestOrUs500::getDate))
                 .collect(Collectors.toList());
 
-        List<BackTestResponseDto.GetBackTestDto.DailyCumulativeReturn.BackTestOrUs500> us500 = dailyPercentageUs500s.stream()
-                .map(dpu -> new BackTestResponseDto.GetBackTestDto.DailyCumulativeReturn.BackTestOrUs500(dpu.getDate(), dpu.getReturns()))
-                .sorted(Comparator.comparing(BackTestResponseDto.GetBackTestDto.DailyCumulativeReturn.BackTestOrUs500::getDate))
+        List<BackTestDetailsDto.GetBackTestDto.DailyCumulativeReturn.BackTestOrUs500> us500 = dailyPercentageUs500s.stream()
+                .map(dpu -> new BackTestDetailsDto.GetBackTestDto.DailyCumulativeReturn.BackTestOrUs500(dpu.getDate(), dpu.getReturns()))
+                .sorted(Comparator.comparing(BackTestDetailsDto.GetBackTestDto.DailyCumulativeReturn.BackTestOrUs500::getDate))
                 .collect(Collectors.toList());
 
-        return BackTestResponseDto.GetBackTestDto.DailyCumulativeReturn.builder()
+        return BackTestDetailsDto.GetBackTestDto.DailyCumulativeReturn.builder()
                 .backTest(backtest)
                 .us500(us500)
                 .build();
     }
 
     //mdd
-    public static BackTestResponseDto.GetBackTestDto.MaxDrawdownGraph toMaxDrawdownGraph(List<Mdd> mdds, List<MddUs500> mddUs500s){
+    public static BackTestDetailsDto.GetBackTestDto.MaxDrawdownGraph toMaxDrawdownGraph(List<Mdd> mdds, List<MddUs500> mddUs500s){
 
-        List<BackTestResponseDto.GetBackTestDto.MaxDrawdownGraph.BackTestOrUs500> backtest = mdds.stream()
-                .map(mdd -> new BackTestResponseDto.GetBackTestDto.MaxDrawdownGraph.BackTestOrUs500(mdd.getDate(), mdd.getMdd()))
-                .sorted(Comparator.comparing(BackTestResponseDto.GetBackTestDto.MaxDrawdownGraph.BackTestOrUs500::getDate))
+        List<BackTestDetailsDto.GetBackTestDto.MaxDrawdownGraph.BackTestOrUs500> backtest = mdds.stream()
+                .map(mdd -> new BackTestDetailsDto.GetBackTestDto.MaxDrawdownGraph.BackTestOrUs500(mdd.getDate(), mdd.getMdd()))
+                .sorted(Comparator.comparing(BackTestDetailsDto.GetBackTestDto.MaxDrawdownGraph.BackTestOrUs500::getDate))
                 .collect(Collectors.toList());
 
 
-        List<BackTestResponseDto.GetBackTestDto.MaxDrawdownGraph.BackTestOrUs500> us500 = mddUs500s.stream()
-                .map(mddu -> new BackTestResponseDto.GetBackTestDto.MaxDrawdownGraph.BackTestOrUs500(mddu.getDate(), mddu.getMdd()))
-                .sorted(Comparator.comparing(BackTestResponseDto.GetBackTestDto.MaxDrawdownGraph.BackTestOrUs500::getDate))
+        List<BackTestDetailsDto.GetBackTestDto.MaxDrawdownGraph.BackTestOrUs500> us500 = mddUs500s.stream()
+                .map(mddu -> new BackTestDetailsDto.GetBackTestDto.MaxDrawdownGraph.BackTestOrUs500(mddu.getDate(), mddu.getMdd()))
+                .sorted(Comparator.comparing(BackTestDetailsDto.GetBackTestDto.MaxDrawdownGraph.BackTestOrUs500::getDate))
                 .collect(Collectors.toList());
 
-        return BackTestResponseDto.GetBackTestDto.MaxDrawdownGraph.builder()
+        return BackTestDetailsDto.GetBackTestDto.MaxDrawdownGraph.builder()
                 .backTest(backtest)
                 .us500(us500)
                 .build();
+    }
+
+    public static List<BackTestResponseDto> toBackTestList(List<BackTest> backTests){
+
+        return backTests.stream()
+                .map(bt -> new BackTestResponseDto(bt.getId(), bt.getName()))
+                .toList();
     }
 }
