@@ -2,6 +2,7 @@ package com.quantweb.springserver.domain.account.entity;
 
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
 import com.quantweb.springserver.domain.user.entity.User;
+import com.quantweb.springserver.domain.user.user_status.UserStatusConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,8 @@ public class Account extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "account_type_id")
+    @Convert(converter = AccountTypeConverter.class)
     private AccountType type;
 
     @NotNull
@@ -36,4 +39,10 @@ public class Account extends BaseTimeEntity {
 
     @NotNull
     private String accountNumber;
+
+    public void updateKoreaInvestmentMockAccount(String appKey, String secretKey, String accountNumber) {
+        this.appKey = appKey;
+        this.secretKey = secretKey;
+        this.accountNumber = accountNumber;
+    }
 }
