@@ -2,8 +2,10 @@ package com.quantweb.springserver.domain.back_test.controller;
 
 import com.quantweb.springserver.domain.auth.config.AuthenticationPrincipal;
 import com.quantweb.springserver.domain.back_test.DTO.request.BackTestInput;
+
 import com.quantweb.springserver.domain.back_test.DTO.response.BackTestDetailsDto;
 import com.quantweb.springserver.domain.back_test.DTO.response.BackTestResponseDto;
+
 import com.quantweb.springserver.domain.stock.dto.response.StockResponseDto;
 import com.quantweb.springserver.domain.stock.service.StockService;
 import org.springframework.web.bind.annotation.*;
@@ -74,8 +76,8 @@ public class BackTestController {
 
     })
     @Authenticated
-    public ResponseEntity<StockResponseDto> getInvestmentSectors(@AuthenticationPrincipal @PathVariable("backtestId") Long backtestId){
 
+    public ResponseEntity<StockResponseDto> getInvestmentSectors(@AuthenticationPrincipal @PathVariable("backtestId") Long backtestId){
         StockResponseDto resultDto = stockService.getInvestmentSectors(backtestId);
 
         return ResponseEntity.ok(resultDto);
@@ -98,4 +100,5 @@ public class BackTestController {
 
         return ResponseEntity.ok(resultDto);
     }
+
 }
