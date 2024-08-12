@@ -5,7 +5,6 @@ import com.quantweb.springserver.domain.account.dto.response.AccountResponse;
 import com.quantweb.springserver.domain.account.service.AccountService;
 import com.quantweb.springserver.domain.auth.config.Authenticated;
 import com.quantweb.springserver.domain.auth.config.AuthenticationPrincipal;
-import com.quantweb.springserver.domain.user.service.dto.response.UserInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +24,8 @@ public class AccountController {
 
   @Authenticated
   @GetMapping("/sync/mock-account")
-  public ResponseEntity<AccountResponse> getKoreaInvestmentMockAccount(@AuthenticationPrincipal Long userId) {
+  public ResponseEntity<AccountResponse> getKoreaInvestmentMockAccount(
+      @AuthenticationPrincipal Long userId) {
     AccountResponse accountResponse = accountService.getKoreaInvestmentMockAccount(userId);
 
     return ResponseEntity.ok(accountResponse);
@@ -33,7 +33,9 @@ public class AccountController {
 
   @Authenticated
   @PostMapping("/sync/mock-account")
-  public ResponseEntity<Void> syncKoreaInvestmentMockAccount(@AuthenticationPrincipal Long userId, @RequestBody KoreaInvestmentMockAccountRequest request) {
+  public ResponseEntity<Void> syncKoreaInvestmentMockAccount(
+      @AuthenticationPrincipal Long userId,
+      @RequestBody KoreaInvestmentMockAccountRequest request) {
     accountService.syncKoreaInvestmentMockAccount(userId, request);
 
     return ResponseEntity.ok().build();
@@ -41,7 +43,9 @@ public class AccountController {
 
   @Authenticated
   @PutMapping("/sync/mock-account")
-  public ResponseEntity<Void> updateKoreaInvestmentMockAccount(@AuthenticationPrincipal Long userId, @RequestBody KoreaInvestmentMockAccountRequest request) {
+  public ResponseEntity<Void> updateKoreaInvestmentMockAccount(
+      @AuthenticationPrincipal Long userId,
+      @RequestBody KoreaInvestmentMockAccountRequest request) {
     accountService.updateKoreaInvestmentMockAccount(userId, request);
 
     return ResponseEntity.ok().build();
@@ -49,11 +53,10 @@ public class AccountController {
 
   @Authenticated
   @DeleteMapping("/sync/mock-account")
-  public ResponseEntity<Void> deleteKoreaInvestmentMockAccount(@AuthenticationPrincipal Long userId) {
+  public ResponseEntity<Void> deleteKoreaInvestmentMockAccount(
+      @AuthenticationPrincipal Long userId) {
     accountService.deleteKoreaInvestmentMockAccount(userId);
 
     return ResponseEntity.ok().build();
   }
-
-
 }

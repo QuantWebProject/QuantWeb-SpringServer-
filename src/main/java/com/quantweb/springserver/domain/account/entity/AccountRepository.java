@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    @Query("SELECT a FROM Account a WHERE a.user.id = :userId")
-    Optional<Account> findByUserId(Long userId);
+  @Query("SELECT a FROM Account a WHERE a.user.id = :userId")
+  Optional<Account> findByUserId(Long userId);
 
-    boolean existsByUserAndType(User user, AccountType accountType);
+  boolean existsByUserAndType(User user, AccountType accountType);
 }

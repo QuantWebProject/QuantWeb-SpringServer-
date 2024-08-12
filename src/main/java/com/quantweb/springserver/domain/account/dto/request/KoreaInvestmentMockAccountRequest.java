@@ -8,12 +8,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public class KoreaInvestmentMockAccountRequest {
 
-    @NotNull
-    private String appKey;
+  @NotNull private String appKey;
 
-    @NotNull
-    private String secretKey;
+  @NotNull private String secretKey;
 
-    @NotNull
-    private String accountNumber;
+  @NotNull private String accountNumber;
 }

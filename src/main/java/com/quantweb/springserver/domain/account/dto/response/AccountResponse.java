@@ -9,8 +9,8 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class AccountResponse {
-    private AccountType type;
-    private String appKey;
-    private String secretKey;
-    private String accountNumber;
+  private AccountType type;
+  private String appKey;
+  private String secretKey;
+  private String accountNumber;
 }

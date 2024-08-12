@@ -2,7 +2,6 @@ package com.quantweb.springserver.domain.account.entity;
 
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
 import com.quantweb.springserver.domain.user.entity.User;
-import com.quantweb.springserver.domain.user.user_status.UserStatusConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -18,31 +17,29 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Account extends BaseTimeEntity {
 
-    @Id
-    @Column(name = "account_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @Column(name = "account_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id")
+  private User user;
 
-    @Column(name = "account_type_id")
-    @Convert(converter = AccountTypeConverter.class)
-    private AccountType type;
+  @Column(name = "account_type_id")
+  @Convert(converter = AccountTypeConverter.class)
+  private AccountType type;
 
-    @NotNull
-    private String appKey;
+  @NotNull private String appKey;
 
-    @NotNull
-    private String secretKey;
+  @NotNull private String secretKey;
 
-    @NotNull
-    private String accountNumber;
+  @NotNull private String accountNumber;
 
-    public void updateKoreaInvestmentMockAccount(String appKey, String secretKey, String accountNumber) {
-        this.appKey = appKey;
-        this.secretKey = secretKey;
-        this.accountNumber = accountNumber;
-    }
+  public void updateKoreaInvestmentMockAccount(
+      String appKey, String secretKey, String accountNumber) {
+    this.appKey = appKey;
+    this.secretKey = secretKey;
+    this.accountNumber = accountNumber;
+  }
 }
