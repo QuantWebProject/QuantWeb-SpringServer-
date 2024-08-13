@@ -27,6 +27,8 @@ public class Market extends BaseTimeEntity {
 
     private String name;
 
+    private String subscribeNum; //구독수 추가
+
     @OneToOne(fetch = FetchType.LAZY)
     private BackTest backTest;
 

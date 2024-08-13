@@ -106,6 +106,9 @@ public class MarketServiceImpl implements MarketService {
         return new MarketIdResponse(market.getId());
     }
 
+    /*
+     * 마켓 전략 삭제
+     */
     @Override
     @Transactional
     public MarketIdResponse deleteMarket(Long marketId) {
@@ -120,7 +123,51 @@ public class MarketServiceImpl implements MarketService {
 
         return new MarketIdResponse(deletedMarketId);
     }
+    /*
+     * 마켓 백테스트 전략 조회(최신순)
+     */
+    @Override
+    @Transactional
+    public MarketPagingResponse<MarketSummaryResponse> inquiryMarketBackTestByCreatedAt(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Market> marketPage = marketRepository.findAllBackTestByCreatedAt(pageable);
+        return marketMapper.toMarketPagingResponse(marketPage.map(marketMapper::toMarketBackTestSummaryResponse));
+    }
+    /*
+     * 마켓 백테스트 전략 조회(최신순)
+     */
+    @Override
+    @Transactional
+    public MarketPagingResponse<MarketSummaryResponse> inquiryMarketInvestmentSimulationByCreatedAt(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Market> marketPage = marketRepository.findAllInvestmentSimulationByCreatedAt(pageable);
+        return marketMapper.toMarketPagingResponse(marketPage.map(marketMapper::toMarketInvestmentSimulationSummaryResponse));
+    }
+    /*
+     * 마켓 백테스트 전략 조회(추천순)
+     */
+    @Override
+    @Transactional
+    public MarketPagingResponse<MarketSummaryResponse> inquiryMarketBackTestByRecommend(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Market> marketPage = marketRepository.findAllBackTestByRecommend(pageable);
+        return marketMapper.toMarketPagingResponse(marketPage.map(marketMapper::toMarketBackTestSummaryResponse));
+    }
 
+    /*
+     * 마켓 모의투자 전략 조회(추천순)
+     */
+    @Override
+    @Transactional
+    public MarketPagingResponse<MarketSummaryResponse> inquiryMarketInvestmentSimulationByRecommend(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Market> marketPage = marketRepository.findAllInvestmentSimulationByRecommend(pageable);
+        return marketMapper.toMarketPagingResponse(marketPage.map(marketMapper::toMarketInvestmentSimulationSummaryResponse));
+    }
+
+    /*
+     * 마켓 백테스트 전략 검색
+     */
     @Override
     @Transactional
     public MarketPagingResponse<MarketSummaryResponse> inquiryMarketBackTestByKeyword(String keyword, int page, int size) {
@@ -129,6 +176,9 @@ public class MarketServiceImpl implements MarketService {
         return marketMapper.toMarketPagingResponse(marketPage.map(marketMapper::toMarketBackTestSummaryResponse));
     }
 
+    /*
+     * 마켓 모의투자 전략 검색
+     */
     @Override
     @Transactional
     public MarketPagingResponse<MarketSummaryResponse> inquiryMarketInvestmentSimulationByKeyword(String keyword, int page, int size){
