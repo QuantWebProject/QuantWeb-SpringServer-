@@ -26,4 +26,6 @@ public interface MarketService {
     MarketPagingResponse <MarketSummaryResponse> inquiryMarketInvestmentSimulationByKeyword(String keyword, int page, int size);
     // 마켓 좋아요 누르기
     Boolean likeMarket(Long marketId, Long userId);
+    //마켓 구독 누르기
+    Boolean subscribeMarket(Long marketId, Long userId);
 }

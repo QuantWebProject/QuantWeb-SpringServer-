@@ -13,11 +13,14 @@ import com.quantweb.springserver.domain.market.dto.response.MarketPagingResponse
 import com.quantweb.springserver.domain.market.dto.response.MarketSummaryResponse;
 import com.quantweb.springserver.domain.market.entity.Market;
 import com.quantweb.springserver.domain.market.entity.Market_like;
+import com.quantweb.springserver.domain.market.entity.Market_subscribe;
 import com.quantweb.springserver.domain.market.entity.Market_tag;
 import com.quantweb.springserver.domain.market.mapper.MarketLikeMapper;
 import com.quantweb.springserver.domain.market.mapper.MarketMapper;
+import com.quantweb.springserver.domain.market.mapper.MarketSubscribeMapper;
 import com.quantweb.springserver.domain.market.respository.MarketLikeRepository;
 import com.quantweb.springserver.domain.market.respository.MarketRepository;
+import com.quantweb.springserver.domain.market.respository.MarketSubscribeRepository;
 import com.quantweb.springserver.domain.user.entity.User;
 import com.quantweb.springserver.domain.user.entity.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +40,8 @@ public class MarketServiceImpl implements MarketService {
 
     private final MarketRepository marketRepository;
     private final MarketLikeRepository marketLikeRepository;
+    private final MarketSubscribeRepository marketSubscribeRepository;
+    private final MarketSubscribeMapper marketSubscribeMapper;
     private final UserRepository userRepository;
     private final MarketMapper marketMapper;
     private final BackTestRepository backTestRepository;
@@ -212,5 +217,20 @@ public class MarketServiceImpl implements MarketService {
         return marketLike.map(Market_like::changeIsChecked)
                 .orElseGet(() -> marketLikeRepository.save(marketLikeMapper.toMarketLike(user, market)).isChecked());
     }
+    /*
+     * 마켓 전략 좋아요 누르기
+     */
+    @Override
+    @Transactional
+    public Boolean subscribeMarket(Long marketId, Long userId){
+        User user = userRepository.findById(userId)
+                .orElseThrow(()->new CustomException(ErrorCode.USER_NOT_FOUND));
 
+        Market market = marketRepository.findById(marketId).
+                orElseThrow(()->new CustomException(ErrorCode.MARKET_NOT_FOUND));
+
+        Optional<Market_subscribe> marketSubscribe = marketSubscribeRepository.findByUserAndMarket(user, market);
+        return marketSubscribe.map(Market_subscribe::changeIsChecked)
+                .orElseGet(()-> marketSubscribeRepository.save(marketSubscribeMapper.toMarketSubscribe(user, market)).isChecked());
+    }
 }
