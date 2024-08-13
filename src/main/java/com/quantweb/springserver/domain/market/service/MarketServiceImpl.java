@@ -142,41 +142,62 @@ public class MarketServiceImpl implements MarketService {
      */
     @Override
     @Transactional
-    public MarketPagingResponse<MarketSummaryResponse> inquiryMarketBackTestByCreatedAt(int page, int size) {
+    public MarketPagingResponse<MarketSummaryResponse> inquiryMarketBackTestByCreatedAt(Long userId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Market> marketPage = marketRepository.findAllBackTestByCreatedAt(pageable);
-        return marketMapper.toMarketPagingResponse(marketPage.map(marketMapper::toMarketBackTestSummaryResponse));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        Page<MarketSummaryResponse> marketSummaryPage = marketPage.map(market ->
+                marketMapper.toMarketBackTestSummaryResponse(market, user)
+        );
+        return marketMapper.toMarketPagingResponse(marketSummaryPage);
     }
     /*
      * 마켓 백테스트 전략 조회(최신순)
      */
     @Override
     @Transactional
-    public MarketPagingResponse<MarketSummaryResponse> inquiryMarketInvestmentSimulationByCreatedAt(int page, int size) {
+    public MarketPagingResponse<MarketSummaryResponse> inquiryMarketInvestmentSimulationByCreatedAt(Long userId,int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Market> marketPage = marketRepository.findAllInvestmentSimulationByCreatedAt(pageable);
-        return marketMapper.toMarketPagingResponse(marketPage.map(marketMapper::toMarketInvestmentSimulationSummaryResponse));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        Page<MarketSummaryResponse> marketSummaryPage = marketPage.map(market ->
+                marketMapper.toMarketInvestmentSimulationSummaryResponse(market, user)
+        );
+        return marketMapper.toMarketPagingResponse(marketSummaryPage);
     }
     /*
      * 마켓 백테스트 전략 조회(추천순)
      */
     @Override
     @Transactional
-    public MarketPagingResponse<MarketSummaryResponse> inquiryMarketBackTestByRecommend(int page, int size){
+    public MarketPagingResponse<MarketSummaryResponse> inquiryMarketBackTestByRecommend(Long userId,int page, int size){
         Pageable pageable = PageRequest.of(page, size);
         Page<Market> marketPage = marketRepository.findAllBackTestByRecommend(pageable);
-        return marketMapper.toMarketPagingResponse(marketPage.map(marketMapper::toMarketBackTestSummaryResponse));
-    }
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        Page<MarketSummaryResponse> marketSummaryPage = marketPage.map(market ->
+                marketMapper.toMarketBackTestSummaryResponse(market, user)
+        );
+        return marketMapper.toMarketPagingResponse(marketSummaryPage);    }
 
     /*
      * 마켓 모의투자 전략 조회(추천순)
      */
     @Override
     @Transactional
-    public MarketPagingResponse<MarketSummaryResponse> inquiryMarketInvestmentSimulationByRecommend(int page, int size){
+    public MarketPagingResponse<MarketSummaryResponse> inquiryMarketInvestmentSimulationByRecommend(Long userId,int page, int size){
         Pageable pageable = PageRequest.of(page, size);
         Page<Market> marketPage = marketRepository.findAllInvestmentSimulationByRecommend(pageable);
-        return marketMapper.toMarketPagingResponse(marketPage.map(marketMapper::toMarketInvestmentSimulationSummaryResponse));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        Page<MarketSummaryResponse> marketSummaryPage = marketPage.map(market ->
+                marketMapper.toMarketInvestmentSimulationSummaryResponse(market, user)
+        );
+        return marketMapper.toMarketPagingResponse(marketSummaryPage);
     }
 
     /*
@@ -184,10 +205,16 @@ public class MarketServiceImpl implements MarketService {
      */
     @Override
     @Transactional
-    public MarketPagingResponse<MarketSummaryResponse> inquiryMarketBackTestByKeyword(String keyword, int page, int size) {
+    public MarketPagingResponse<MarketSummaryResponse> inquiryMarketBackTestByKeyword(Long userId,String keyword, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Market> marketPage = marketRepository.findAllBackTestBySearch(keyword, pageable);
-        return marketMapper.toMarketPagingResponse(marketPage.map(marketMapper::toMarketBackTestSummaryResponse));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        Page<MarketSummaryResponse> marketSummaryPage = marketPage.map(market ->
+                marketMapper.toMarketBackTestSummaryResponse(market, user)
+        );
+        return marketMapper.toMarketPagingResponse(marketSummaryPage);
     }
 
     /*
@@ -195,10 +222,15 @@ public class MarketServiceImpl implements MarketService {
      */
     @Override
     @Transactional
-    public MarketPagingResponse<MarketSummaryResponse> inquiryMarketInvestmentSimulationByKeyword(String keyword, int page, int size){
+    public MarketPagingResponse<MarketSummaryResponse> inquiryMarketInvestmentSimulationByKeyword(Long userId,String keyword, int page, int size){
         Pageable pageable = PageRequest.of(page, size);
         Page<Market> marketPage = marketRepository.findAllInvestmentSimulationBySearch(keyword, pageable);
-        return marketMapper.toMarketPagingResponse(marketPage.map(marketMapper::toMarketInvestmentSimulationSummaryResponse));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        Page<MarketSummaryResponse> marketSummaryPage = marketPage.map(market ->
+                marketMapper.toMarketInvestmentSimulationSummaryResponse(market, user)
+        );
+        return marketMapper.toMarketPagingResponse(marketSummaryPage);
     }
     /*
      * 마켓 전략 좋아요 누르기

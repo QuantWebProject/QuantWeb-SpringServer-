@@ -46,78 +46,90 @@ public class MarketController {
 
     @Operation(summary = "마켓 백테스트 전략 최신순 조회 API")
     @Parameters(value = {
+            @Parameter(name = "userId", description = "로그인된 유저 Id"),
             @Parameter(name = "page", description = "페이지 번호(0부터 시작)"),
             @Parameter(name = "size", description = "한 페이지 당 백 테스트 개수"),
     })
     @GetMapping("/backtests/recent")
     public ResponseEntity<MarketPagingResponse<MarketSummaryResponse>> inquiryMarketBackTestByRecent(
+            @RequestParam(name = "userId") Long userId,
             @RequestParam(name = "page") int page,
             @RequestParam(name = "size") int size){
-        return ResponseEntity.ok(marketService.inquiryMarketBackTestByCreatedAt(page, size));
+        return ResponseEntity.ok(marketService.inquiryMarketBackTestByCreatedAt(userId, page, size));
     }
 
     @Operation(summary = "마켓 모의투자 전략 최신순 조회 API")
     @Parameters(value = {
+            @Parameter(name = "userId", description = "로그인된 유저 Id"),
             @Parameter(name = "page", description = "페이지 번호(0부터 시작)"),
             @Parameter(name = "size", description = "한 페이지 당 모의투자 개수"),
     })
     @GetMapping("/investments/recent")
     public ResponseEntity<MarketPagingResponse<MarketSummaryResponse>> inquiryMarketInvestmentByRecent(
+            @RequestParam(name = "userId") Long userId,
             @RequestParam(name = "page") int page,
             @RequestParam(name = "size") int size){
-        return ResponseEntity.ok(marketService.inquiryMarketInvestmentSimulationByCreatedAt(page,size));
+        return ResponseEntity.ok(marketService.inquiryMarketInvestmentSimulationByCreatedAt(userId, page,size));
     }
 
     @Operation(summary = "마켓 백테스트 전략 추천순 조회 API")
     @Parameters(value = {
+            @Parameter(name = "userId", description = "로그인된 유저 Id"),
             @Parameter(name = "page", description = "페이지 번호(0부터 시작)"),
             @Parameter(name = "size", description = "한 페이지 당 백 테스트 개수"),
     })
     @GetMapping("/backtests/recommend")
     public ResponseEntity<MarketPagingResponse<MarketSummaryResponse>> inquiryMarketBackTestByRecommend(
+            @RequestParam(name = "userId") Long userId,
             @RequestParam(name = "page") int page,
             @RequestParam(name = "size") int size){
-        return ResponseEntity.ok(marketService.inquiryMarketBackTestByRecommend(page, size));
+        return ResponseEntity.ok(marketService.inquiryMarketBackTestByRecommend(userId, page, size));
     }
 
     @Operation(summary = "마켓 모의투자 전략 추천순 조회 API")
     @Parameters(value = {
+            @Parameter(name = "userId", description = "로그인된 유저 Id"),
             @Parameter(name = "page", description = "페이지 번호(0부터 시작)"),
             @Parameter(name = "size", description = "한 페이지 당 백 테스트 개수"),
     })
     @GetMapping("/investmentSimulation/recommend")
     public ResponseEntity<MarketPagingResponse<MarketSummaryResponse>> inquiryMarketInvestmentSimulationByRecommend(
+            @RequestParam(name = "userId") Long userId,
             @RequestParam(name = "page") int page,
             @RequestParam(name = "size") int size){
-        return ResponseEntity.ok(marketService.inquiryMarketInvestmentSimulationByRecommend(page, size));
+        return ResponseEntity.ok(marketService.inquiryMarketInvestmentSimulationByRecommend(userId, page, size));
     }
 
     @Operation(summary = "마켓 백테스트 전략 검색 API")
     @Parameters(value = {
+            @Parameter(name = "userId", description = "로그인된 유저 Id"),
             @Parameter(name = "keyword", description = "검색할 키워드"),
             @Parameter(name = "page", description = "페이지 번호(0부터 시작)"),
             @Parameter(name = "size", description = "한 페이지 당 백 테스트 개수"),
     })
     @GetMapping("/backtests/search")
     public ResponseEntity<MarketPagingResponse<MarketSummaryResponse>> inquiryMarketBackTestBySearch(
+            @RequestParam(name = "userId") Long userId,
             @RequestParam(name = "keyword") String keyword,
             @RequestParam(name = "page") int page,
             @RequestParam(name = "size") int size){
-        return ResponseEntity.ok(marketService.inquiryMarketBackTestByKeyword(keyword, page, size));
+        return ResponseEntity.ok(marketService.inquiryMarketBackTestByKeyword(userId, keyword, page, size));
     }
 
     @Operation(summary = "마켓 모의투자 전략 검색 API")
     @Parameters(value = {
+            @Parameter(name = "userId", description = "로그인된 유저 Id"),
             @Parameter(name = "keyword", description = "검색할 키워드"),
             @Parameter(name = "page", description = "페이지 번호(0부터 시작)"),
             @Parameter(name = "size", description = "한 페이지 당 모의투자 개수"),
     })
     @GetMapping("/investmentSimulation/search")
     public ResponseEntity<MarketPagingResponse<MarketSummaryResponse>> inquiryMarketInvestmentSimulationBySearch(
+            @RequestParam(name = "userId") Long userId,
             @RequestParam(name = "keyword") String keyword,
             @RequestParam(name = "page") int page,
             @RequestParam(name = "size") int size){
-        return ResponseEntity.ok(marketService.inquiryMarketInvestmentSimulationByKeyword(keyword, page, size));
+        return ResponseEntity.ok(marketService.inquiryMarketInvestmentSimulationByKeyword(userId, keyword, page, size));
     }
 
     @Operation(summary = "마켓 좋아요 누르기 API")
