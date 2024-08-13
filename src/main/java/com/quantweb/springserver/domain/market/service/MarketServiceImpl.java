@@ -262,7 +262,28 @@ public class MarketServiceImpl implements MarketService {
                 orElseThrow(()->new CustomException(ErrorCode.MARKET_NOT_FOUND));
 
         Optional<Market_subscribe> marketSubscribe = marketSubscribeRepository.findByUserAndMarket(user, market);
-        return marketSubscribe.map(Market_subscribe::changeIsChecked)
-                .orElseGet(()-> marketSubscribeRepository.save(marketSubscribeMapper.toMarketSubscribe(user, market)).isChecked());
+        boolean isChecked;
+        if(marketSubscribe.isPresent()){
+            Market_subscribe currentMarketSubscribe = marketSubscribe.get();
+            isChecked = marketSubscribe.get().changeIsChecked();
+            boolean newCheckedStatus = marketSubscribe.get().isChecked();
+
+            if (newCheckedStatus) {
+                market.increaseSubscribeNum(); // 원래 구독 상태가 아니었다면 구독수 증가
+            } else {
+                market.decreaseSubscribeNum(); // 원래 구독 상태 였다면 구독수 하강
+            }
+            marketSubscribeRepository.save(currentMarketSubscribe);
+        }
+
+        else{
+            isChecked = true;
+            Market_subscribe newSubscription = marketSubscribeMapper.toMarketSubscribe(user, market);
+            marketSubscribeRepository.save(newSubscription);
+            market.increaseSubscribeNum();//구독수 증가
+        }
+        marketRepository.save(market);
+
+        return isChecked;
     }
 }

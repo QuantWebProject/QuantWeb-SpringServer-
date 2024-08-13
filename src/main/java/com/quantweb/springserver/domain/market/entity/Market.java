@@ -50,4 +50,13 @@ public class Market extends BaseTimeEntity {
         this.investmentSimulation = investmentSimulation;
     }
 
+    public void increaseSubscribeNum(){
+        this.subscribeNum++;
+    }
+    public void decreaseSubscribeNum() {
+        if (this.subscribeNum > 0) {
+            this.subscribeNum--;
+        }
+    }
+
 }

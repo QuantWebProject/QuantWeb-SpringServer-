@@ -11,6 +11,7 @@ public class MarketSubscribeMapper {
         return Market_subscribe.builder()
                 .user(user)
                 .market(market)
+                .isChecked(true)
                 .build();
     }
 }
