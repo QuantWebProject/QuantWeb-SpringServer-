@@ -12,9 +12,14 @@ import com.quantweb.springserver.domain.market.dto.response.MarketIdResponse;
 import com.quantweb.springserver.domain.market.dto.response.MarketPagingResponse;
 import com.quantweb.springserver.domain.market.dto.response.MarketSummaryResponse;
 import com.quantweb.springserver.domain.market.entity.Market;
+import com.quantweb.springserver.domain.market.entity.Market_like;
 import com.quantweb.springserver.domain.market.entity.Market_tag;
+import com.quantweb.springserver.domain.market.mapper.MarketLikeMapper;
 import com.quantweb.springserver.domain.market.mapper.MarketMapper;
+import com.quantweb.springserver.domain.market.respository.MarketLikeRepository;
 import com.quantweb.springserver.domain.market.respository.MarketRepository;
+import com.quantweb.springserver.domain.user.entity.User;
+import com.quantweb.springserver.domain.user.entity.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,10 +36,13 @@ import java.util.stream.Collectors;
 public class MarketServiceImpl implements MarketService {
 
     private final MarketRepository marketRepository;
+    private final MarketLikeRepository marketLikeRepository;
+    private final UserRepository userRepository;
     private final MarketMapper marketMapper;
     private final BackTestRepository backTestRepository;
     private final InvestmentSimulationRepository investmentSimulationRepository;
     private final MarketTagService marketTagService;
+    private final MarketLikeMapper marketLikeMapper;
 
     /*
      * 마켓 전략 생성
@@ -186,4 +195,22 @@ public class MarketServiceImpl implements MarketService {
         Page<Market> marketPage = marketRepository.findAllInvestmentSimulationBySearch(keyword, pageable);
         return marketMapper.toMarketPagingResponse(marketPage.map(marketMapper::toMarketInvestmentSimulationSummaryResponse));
     }
+    /*
+     * 마켓 전략 좋아요 누르기
+     */
+    @Override
+    @Transactional
+    public Boolean likeMarket(Long marketId, Long userId){
+        User user = userRepository.findById(userId)
+                .orElseThrow(()->new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        Market market = marketRepository.findById(marketId).
+                orElseThrow(()->new CustomException(ErrorCode.MARKET_NOT_FOUND));
+
+        Optional<Market_like> marketLike = marketLikeRepository.findByUserAndMarket(user, market);
+
+        return marketLike.map(Market_like::changeIsChecked)
+                .orElseGet(() -> marketLikeRepository.save(marketLikeMapper.toMarketLike(user, market)).isChecked());
+    }
+
 }

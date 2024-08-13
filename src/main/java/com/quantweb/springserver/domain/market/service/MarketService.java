@@ -24,6 +24,6 @@ public interface MarketService {
     MarketPagingResponse <MarketSummaryResponse> inquiryMarketBackTestByKeyword(String keyword, int page, int size);
     // 마켓 전략 등록 되어 있는 모의 투자 검색
     MarketPagingResponse <MarketSummaryResponse> inquiryMarketInvestmentSimulationByKeyword(String keyword, int page, int size);
-    //
-    MarketIdResponse likeMarket(Long marketId);
+    // 마켓 좋아요 누르기
+    Boolean likeMarket(Long marketId, Long userId);
 }

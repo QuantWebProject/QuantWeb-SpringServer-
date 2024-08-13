@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 @Getter
 @RequiredArgsConstructor
 public enum ErrorCode implements CustomErrorCode{
+    //User
+    USER_NOT_FOUND("USER401", HttpStatus.NOT_FOUND, "유저를 찾을 수 없습니다."),
+
     //MARKET
     MARKET_NOT_FOUND("MARKET401", HttpStatus.NOT_FOUND, "가게를 찾을 수 없습니다."),
 

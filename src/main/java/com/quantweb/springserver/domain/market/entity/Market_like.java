@@ -21,6 +21,9 @@ public class Market_like extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private boolean isChecked; // 좋아요 상태 추가
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -28,4 +31,9 @@ public class Market_like extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "market")
     private Market market;
+
+    public boolean changeIsChecked(){
+        this.isChecked = !this.isChecked;
+        return isChecked;
+    }
 }
