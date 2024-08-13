@@ -1,10 +1,12 @@
 package com.quantweb.springserver.domain.investment_simulation.entity;
 
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
+
 import com.quantweb.springserver.domain.back_test.entity.TechnicalStrategy;
-import com.quantweb.springserver.domain.graph.entity.MyStrategyGraph;
-import com.quantweb.springserver.domain.history.entity.History;
+import com.quantweb.springserver.domain.graph.entity.Graph;
+import com.quantweb.springserver.domain.investment_sectors_pie_chart.entity.InvestmentSectorsPieChart;
 import com.quantweb.springserver.domain.sales_transaction_history.entity.SalesTransactionHistory;
+import com.quantweb.springserver.domain.stock.entity.Stock;
 import com.quantweb.springserver.domain.user.entity.User;
 import com.quantweb.springserver.domain.value_investing_strategy.entity.ValueInvestingStrategy;
 import com.quantweb.springserver.domain.tech_analy_strategy_variables.entity.TechAnalyStrategyVariables;
@@ -59,13 +61,13 @@ public class InvestmentSimulation extends BaseTimeEntity {
 
     private Float evaluatedProfitLoss;
 
-    private Integer currentInvestmentFund;
+    private Integer finalAsset;
 
     private Boolean marketShared;
 
     private LocalDateTime deletedAt;
 
-    private TechnicalStrategy strategy;
+    private TechnicalStrategy technicalStrategy;
 
     @OneToOne(mappedBy = "investmentSimulation", fetch = FetchType.LAZY)
     private TechAnalyStrategyVariables variables;
@@ -74,15 +76,14 @@ public class InvestmentSimulation extends BaseTimeEntity {
     private List<ValueInvestingStrategy> valueInvestingStrategy;
 
     @OneToMany(mappedBy = "investmentSimulation", cascade = CascadeType.ALL)
-    private List<History> history;
+    private List<Stock> stock;
+
+    @OneToMany(mappedBy = "investmentSimulation", cascade = CascadeType.ALL)
+    private List<InvestmentSectorsPieChart> pieCharts;
 
     @OneToMany(mappedBy = "investmentSimulation", cascade = CascadeType.ALL)
     private List<SalesTransactionHistory> salesTransactionHistories;
 
     @OneToOne(mappedBy = "investmentSimulation", fetch = FetchType.LAZY)
-    private MyStrategyGraph myStrategyGraph;
-
-    public void updateMarketShared(){
-        this.marketShared = !marketShared;
-    }
+    private Graph graph;
 }

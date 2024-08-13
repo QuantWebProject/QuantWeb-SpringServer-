@@ -1,16 +1,14 @@
-package com.quantweb.springserver.domain.daily_percentage.entity;
+package com.quantweb.springserver.domain.graph.entity;
 
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
-import com.quantweb.springserver.domain.graph.entity.Graph;
-import com.quantweb.springserver.domain.stock.entity.Stock;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -25,9 +23,9 @@ public class DailyPercentage extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime date;
+    private LocalDate date;
 
-    private Float profit;
+    private Float returns;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "graph_id")

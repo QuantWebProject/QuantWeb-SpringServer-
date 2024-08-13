@@ -8,7 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,6 +20,8 @@ import java.time.LocalDateTime;
 @Table(name = "sales_transaction_history")
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicInsert
+@DynamicUpdate
 public class SalesTransactionHistory extends BaseTimeEntity {
 
     @Id
@@ -32,11 +37,12 @@ public class SalesTransactionHistory extends BaseTimeEntity {
     @JoinColumn(name = "investment_simulation_id")
     private InvestmentSimulation investmentSimulation;
 
-    private LocalDateTime dateTime;
+    private LocalDate dateTime;
 
-    private Float quantity;
+    private Long quantity;
 
-    private Float price;
+    private String ticker;
 
+    @Enumerated(EnumType.STRING)
     private TransactionType type;
 }

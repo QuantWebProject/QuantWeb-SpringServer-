@@ -11,20 +11,22 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NaverUserResponse {
 
-    @JsonProperty("resultcode")
-    private String resultCode;
-    @JsonProperty("message")
-    private String message;
-    @JsonProperty("response")
-    private NaverUserDetail naverUserDetail;
+  @JsonProperty("resultcode")
+  private String resultCode;
 
-    @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class NaverUserDetail {
+  @JsonProperty("message")
+  private String message;
 
-        private String id;
-        private String name;
-        private String email;
-    }
+  @JsonProperty("response")
+  private NaverUserDetail naverUserDetail;
+
+  @Getter
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public static class NaverUserDetail {
+
+    private String id;
+    private String name;
+    private String email;
+  }
 }
