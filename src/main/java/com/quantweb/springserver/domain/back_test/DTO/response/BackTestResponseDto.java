@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BackTestResultDto {
+public class BackTestResponseDto {
 
     private Long backtestId;
     private String backtestName;

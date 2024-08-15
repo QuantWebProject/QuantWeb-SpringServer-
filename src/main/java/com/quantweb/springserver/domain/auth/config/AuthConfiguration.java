@@ -42,10 +42,10 @@ public class AuthConfiguration implements WebMvcConfigurer {
     final String LOCAL_URL = "http://localhost:5173";
 
     registry
-        .addMapping("/*")
+        .addMapping("/**")
         .allowedOrigins(LOCAL_URL)
         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-        .allowedHeaders("")
+        .allowedHeaders("*")
         .allowCredentials(true);
   }
 }
