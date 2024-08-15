@@ -17,6 +17,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -49,10 +50,10 @@ public class InvestmentSimulation extends BaseTimeEntity {
     private Integer rebalancePeriod;
 
     @NotNull
-    private LocalDateTime investStartDate;
+    private LocalDate investStartDate;
 
     @NotNull
-    private LocalDateTime investEndDate;
+    private LocalDate investEndDate;
 
     private Float yearlyAverageProfit;
 

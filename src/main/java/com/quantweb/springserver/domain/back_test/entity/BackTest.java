@@ -84,4 +84,7 @@ public class BackTest extends BaseTimeEntity {
     @OneToOne(mappedBy = "backTest", fetch = FetchType.LAZY)
     private Graph graph;
 
+    public void updateMarketShared(){
+        this.marketShared = !marketShared;
+    }
 }

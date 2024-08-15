@@ -25,4 +25,8 @@ public class Market_tag extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "market")
     private Market market;
+
+    public void setMarket(Market market) {
+        this.market = market;
+    }
 }
