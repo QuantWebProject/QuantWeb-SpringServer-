@@ -3,6 +3,7 @@ package com.quantweb.springserver.domain.market.entity;
 import com.quantweb.springserver.common.entity.BaseTimeEntity;
 import com.quantweb.springserver.domain.back_test.entity.BackTest;
 import com.quantweb.springserver.domain.investment_simulation.entity.InvestmentSimulation;
+import com.quantweb.springserver.domain.market.dto.request.MarketUpdateRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +27,8 @@ public class Market extends BaseTimeEntity {
 
     private String name;
 
+    private Integer subscribeNum; //구독수 추가
+
     @OneToOne(fetch = FetchType.LAZY)
     private BackTest backTest;
 
@@ -40,4 +43,20 @@ public class Market extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "market", cascade = CascadeType.ALL)
     private List<Market_tag> marketTags;
+
+    public void updateMarketInfo(String name, BackTest backTest, InvestmentSimulation investmentSimulation){
+        this.name = name;
+        this.backTest = backTest;
+        this.investmentSimulation = investmentSimulation;
+    }
+
+    public void increaseSubscribeNum(){
+        this.subscribeNum++;
+    }
+    public void decreaseSubscribeNum() {
+        if (this.subscribeNum > 0) {
+            this.subscribeNum--;
+        }
+    }
+
 }
