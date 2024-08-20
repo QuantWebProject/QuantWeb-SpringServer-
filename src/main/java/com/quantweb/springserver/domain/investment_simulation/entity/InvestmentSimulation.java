@@ -86,4 +86,8 @@ public class InvestmentSimulation extends BaseTimeEntity {
 
     @OneToOne(mappedBy = "investmentSimulation", fetch = FetchType.LAZY)
     private Graph graph;
+
+    public void updateMarketShared(){
+        this.marketShared = !marketShared;
+    }
 }
