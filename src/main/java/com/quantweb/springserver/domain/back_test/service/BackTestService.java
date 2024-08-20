@@ -58,7 +58,7 @@ public class BackTestService {
 
 		User findUser = userRepository.findById(userId).orElseThrow(()-> new RuntimeException("사용자 정보가 존재하지 않습니다."));
 
-		if (backTestRepository.existsByName(backTestInput.getName())) {
+		if (backTestRepository.existsByName(backTestInput.getStrategy_setup().getStrategy_name())) {
 			throw new RuntimeException("이미 사용중인 이름 입니다.");
 		}
 

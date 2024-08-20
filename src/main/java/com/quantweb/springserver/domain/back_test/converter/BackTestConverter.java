@@ -26,7 +26,7 @@ public class BackTestConverter {
 
         return BackTest.builder()
                 .user(user)
-                .name(backTestInput.getName())
+                .name(backTestInput.getStrategy_setup().getStrategy_name())
                 .stockNum(backTestInput.getStrategy_setup().getStock_selection())
                 .initInvestmentFund(responseDto.getInitial_amount())
                 .fees(backTestInput.getStrategy_setup().getFee())
@@ -39,7 +39,7 @@ public class BackTestConverter {
                 .finalAsset(responseDto.getFinal_asset())
                 .marketShared(false)
                 .deletedAt(null)
-                .technicalStrategy(TechnicalStrategy.valueOf(backTestInput.getStrategy_setup().getStrategy_name()))
+                .technicalStrategy(backTestInput.getStrategy_setup().getBacktest_strategy())
                 .build();
     }
 
