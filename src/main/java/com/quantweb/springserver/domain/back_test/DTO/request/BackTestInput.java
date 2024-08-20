@@ -2,6 +2,7 @@ package com.quantweb.springserver.domain.back_test.DTO.request;
 
 import com.google.gson.annotations.SerializedName;
 
+import com.quantweb.springserver.domain.back_test.entity.TechnicalStrategy;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,6 @@ import java.util.List;
 @Getter
 @RequiredArgsConstructor
 public class BackTestInput {
-	private String name;
 
 	@SerializedName(value = "strategy_setup")
 	private StrategySetup strategy_setup;
@@ -42,7 +42,7 @@ public class BackTestInput {
 		private String ohlcv;
 
 		@SerializedName("backtest_strategy")
-		private String backtest_strategy;
+		private TechnicalStrategy backtest_strategy;
 
 		@SerializedName("technical_analysis_strategy")
 		private List<TechnicalAnalysisStrategy> technical_analysis_strategy;
