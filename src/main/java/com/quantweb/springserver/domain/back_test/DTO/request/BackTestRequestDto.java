@@ -24,8 +24,6 @@ public class BackTestRequestDto {
             private String name;
             private Integer stockNum;
             private Float fees;
-            private String rebalancingPeriod;
-            private TechnicalStrategy technicalStrategy;
         }
     }
 }

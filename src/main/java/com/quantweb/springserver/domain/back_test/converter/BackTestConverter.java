@@ -31,7 +31,7 @@ public class BackTestConverter {
                 .stockNum(responseDto.getBackTestInfo().getStockNum())
                 .initInvestmentFund(responseDto.getInvestment_result().getInitial_amount())
                 .fees(responseDto.getBackTestInfo().getFees())
-                .rebalancePeriod(responseDto.getBackTestInfo().getRebalancingPeriod())
+                .rebalancePeriod(responseDto.getStrategy_info().getRebalancing_period())
                 .investStartDate(LocalDate.parse(responseDto.getInvestment_result().getPeriod().getStart_date()))
                 .investEndDate(LocalDate.parse(responseDto.getInvestment_result().getPeriod().getEnd_date()))
                 .yearlyAverageProfit(responseDto.getInvestment_result().getAnnualized_return())
@@ -40,7 +40,7 @@ public class BackTestConverter {
                 .finalAsset(responseDto.getInvestment_result().getFinal_asset())
                 .marketShared(false)
                 .deletedAt(null)
-                .technicalStrategy(responseDto.getBackTestInfo().getTechnicalStrategy())
+                .technicalStrategy(TechnicalStrategy.valueOf(responseDto.getStrategy_info().getStrategy_used()))
                 .build();
     }
 
