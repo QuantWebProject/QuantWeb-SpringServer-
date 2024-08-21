@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.quantweb.springserver.common.exception.CustomException;
 import com.quantweb.springserver.common.exception.ErrorCode;
+import com.quantweb.springserver.domain.back_test.DTO.request.BackTestRequestDto;
 import com.quantweb.springserver.domain.back_test.DTO.response.BackTestDetailsDto;
 import com.quantweb.springserver.domain.back_test.DTO.response.BackTestResponseDto;
 import com.quantweb.springserver.domain.back_test.DTO.response.StrategyInfoDto;
@@ -55,14 +56,8 @@ public class BackTestService {
 	private final TransactionHistoryService	transactionHistoryService;
 	private final StockService stockService;
 
-	@Transactional
-	public BackTestResponseDto backtestAndSave(Long userId, BackTestInput backTestInput) {
 
-		User findUser = userRepository.findById(userId).orElseThrow(()-> new CustomException(ErrorCode.USER_NOT_FOUND));
-
-		if (backTestRepository.existsByName(backTestInput.getStrategy_setup().getStrategy_name())) {
-			throw new CustomException(ErrorCode.BACKTEST_BAD_REQUEST);
-		}
+	public BackTestResponseDto.BackTestCreateDto createBackTest(BackTestInput backTestInput) {
 
 		RestTemplate restTemplate = new RestTemplate();
 		String url = "http://ec2-43-203-37-134.ap-northeast-2.compute.amazonaws.com:8000/backtesting";
@@ -92,12 +87,23 @@ public class BackTestService {
 		InvestmentResultDto investmentResultDto = gson.fromJson(investmentResultJson, InvestmentResultDto.class);
 		StrategyInfoDto strategyInfoDto = gson.fromJson(strategyInfoJson, StrategyInfoDto.class	);
 
-		BackTest newBackTest = saveBackTest(findUser, backTestInput, investmentResultDto, strategyInfoDto);
-		return new BackTestResponseDto(newBackTest.getId(), newBackTest.getName());
+		//BackTest newBackTest = saveBackTest(findUser, backTestInput, investmentResultDto, strategyInfoDto);
+		return new BackTestResponseDto.BackTestCreateDto(investmentResultDto, strategyInfoDto);
 	}
 
-	private BackTest saveBackTest(User user, BackTestInput backTestInput, InvestmentResultDto investmentResultDto, StrategyInfoDto strategyInfoDto) {
-		BackTest newBackTest = BackTestConverter.toBackTest(user, backTestInput, investmentResultDto);
+
+	@Transactional
+	public BackTestResponseDto.BackTestSaveDto saveBackTest(Long userId, BackTestRequestDto.BackTestSaveDto backTestResult) {
+		User findUser = userRepository.findById(userId).orElseThrow(()-> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+		if (backTestRepository.existsByName(backTestResult.getBackTestInfo().getName())) {
+			throw new CustomException(ErrorCode.BACKTEST_BAD_REQUEST);
+		}
+
+		InvestmentResultDto investmentResultDto = backTestResult.getInvestment_result();
+		StrategyInfoDto strategyInfoDto = backTestResult.getStrategy_info();
+
+		BackTest newBackTest = BackTestConverter.toBackTest(findUser, backTestResult);
 
 		Graph graph = GraphConverter.toBackTestGraph(newBackTest);
 
@@ -114,7 +120,7 @@ public class BackTestService {
 
 		backTestRepository.save(newBackTest);
 
-		return newBackTest;
+		return new  BackTestResponseDto.BackTestSaveDto(newBackTest.getId(), newBackTest.getName());
 	}
 
 
@@ -138,7 +144,7 @@ public class BackTestService {
     }
 
 
-	public List<BackTestResponseDto> getMyBacktests(Long userId){
+	public List<BackTestResponseDto.BackTestSaveDto> getMyBacktests(Long userId){
 
 		List<BackTest> backTests = backTestRepository.findAllByUserId(userId).orElseThrow(()->new CustomException(ErrorCode.USER_NOT_FOUND));
 
@@ -148,7 +154,7 @@ public class BackTestService {
 
 
 	@Transactional
-	public BackTestResponseDto deleteBacktest(Long userId, Long backtestId){
+	public BackTestResponseDto.BackTestSaveDto deleteBacktest(Long userId, Long backtestId){
 
 		User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
@@ -160,6 +166,6 @@ public class BackTestService {
 
 		backTestRepository.delete(findBackTest);
 
-		return new BackTestResponseDto(findBackTest.getId(), findBackTest.getName());
+		return new BackTestResponseDto.BackTestSaveDto(findBackTest.getId(), findBackTest.getName());
 	}
 }
