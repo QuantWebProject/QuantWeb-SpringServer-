@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.quantweb.springserver.common.exception.CustomException;
+import com.quantweb.springserver.common.exception.ErrorCode;
 import com.quantweb.springserver.domain.back_test.DTO.response.BackTestDetailsDto;
 import com.quantweb.springserver.domain.back_test.DTO.response.BackTestResponseDto;
 import com.quantweb.springserver.domain.back_test.DTO.response.StrategyInfoDto;
@@ -56,10 +58,10 @@ public class BackTestService {
 	@Transactional
 	public BackTestResponseDto backtestAndSave(Long userId, BackTestInput backTestInput) {
 
-		User findUser = userRepository.findById(userId).orElseThrow(()-> new RuntimeException("사용자 정보가 존재하지 않습니다."));
+		User findUser = userRepository.findById(userId).orElseThrow(()-> new CustomException(ErrorCode.USER_NOT_FOUND));
 
 		if (backTestRepository.existsByName(backTestInput.getStrategy_setup().getStrategy_name())) {
-			throw new RuntimeException("이미 사용중인 이름 입니다.");
+			throw new CustomException(ErrorCode.BACKTEST_BAD_REQUEST);
 		}
 
 		RestTemplate restTemplate = new RestTemplate();
@@ -138,8 +140,26 @@ public class BackTestService {
 
 	public List<BackTestResponseDto> getMyBacktests(Long userId){
 
-		List<BackTest> backTests = backTestRepository.findAllByUserId(userId).orElseThrow(()->new RuntimeException("유저 정보가 존재하지 않습니다."));
+		List<BackTest> backTests = backTestRepository.findAllByUserId(userId).orElseThrow(()->new CustomException(ErrorCode.USER_NOT_FOUND));
 
 		return BackTestConverter.toBackTestList(backTests);
+	}
+
+
+
+	@Transactional
+	public BackTestResponseDto deleteBacktest(Long userId, Long backtestId){
+
+		User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+		BackTest findBackTest = backTestRepository.findById(backtestId).orElseThrow(()->new CustomException(ErrorCode.BACKTEST_NOT_FOUND));
+
+		if (findBackTest.getUser()!=findUser){
+			throw new CustomException(ErrorCode.BACKTEST_UNAUTHORIZED);
+		}
+
+		backTestRepository.delete(findBackTest);
+
+		return new BackTestResponseDto(findBackTest.getId(), findBackTest.getName());
 	}
 }

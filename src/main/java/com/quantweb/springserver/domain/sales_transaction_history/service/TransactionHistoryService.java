@@ -1,5 +1,7 @@
 package com.quantweb.springserver.domain.sales_transaction_history.service;
 
+import com.quantweb.springserver.common.exception.CustomException;
+import com.quantweb.springserver.common.exception.ErrorCode;
 import com.quantweb.springserver.domain.back_test.DTO.response.InvestmentResultDto;
 import com.quantweb.springserver.domain.back_test.entity.BackTest;
 import com.quantweb.springserver.domain.sales_transaction_history.converter.TransactionHistoryConverter;
@@ -20,6 +22,7 @@ public class TransactionHistoryService {
 
     private final TransactionHistoryRepository transactionHistoryRepository;
 
+    @Transactional
     public void saveTransactionHistory(ArrayList<InvestmentResultDto.TransactionHistoryGraphItem> transactionHistory, BackTest backTest){
 
         transactionHistory.forEach(th -> {
@@ -29,7 +32,7 @@ public class TransactionHistoryService {
 
     public TransactionHistoryResponseDto getTransactionHistory(Long backtestId){
 
-        List<SalesTransactionHistory> transactionHistories = transactionHistoryRepository.findAllByBackTestId(backtestId).orElseThrow(() -> new RuntimeException("백테스트가 존재하지 않습니다."));
+        List<SalesTransactionHistory> transactionHistories = transactionHistoryRepository.findAllByBackTestId(backtestId).orElseThrow(() -> new CustomException(ErrorCode.BACKTEST_NOT_FOUND));
 
         return TransactionHistoryConverter.toTransactionHistoryResultDto(transactionHistories);
     }

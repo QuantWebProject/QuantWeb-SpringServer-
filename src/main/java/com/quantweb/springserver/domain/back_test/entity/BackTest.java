@@ -81,10 +81,12 @@ public class BackTest extends BaseTimeEntity {
     @OneToMany(mappedBy = "backTest", cascade = CascadeType.ALL)
     private List<SalesTransactionHistory> salesTransactionHistories;
 
-    @OneToOne(mappedBy = "backTest", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "backTest", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Graph graph;
 
     public void updateMarketShared(){
         this.marketShared = !marketShared;
     }
+
+
 }

@@ -41,14 +41,14 @@ public class BackTestController {
     private final StockService stockService;
     private final TransactionHistoryService transactionHistoryService;
 
-	@PostMapping("/{userId}")
+	@PostMapping
     @Operation(summary = "백테스트 실행하기 API",description = "")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200",description = "OK, 성공"),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "BACKTEST400", description = "백테스트 이름이 중복되었습니다.",content = @Content(schema = @Schema(implementation = EntityResponse.class))),
     })
 	@Authenticated
-	public ResponseEntity<BackTestResponseDto> backTest(@AuthenticationPrincipal @PathVariable("userId") Long userId, @RequestBody BackTestInput backTestInput) {
+	public ResponseEntity<BackTestResponseDto> backTest(@AuthenticationPrincipal Long userId, @RequestBody BackTestInput backTestInput) {
 		return ResponseEntity.ok(backTestService.backtestAndSave(userId, backTestInput));
 	}
 
@@ -83,13 +83,13 @@ public class BackTestController {
     })
     @Authenticated
 
-    public ResponseEntity<StockResponseDto> getInvestmentSectors(@AuthenticationPrincipal @PathVariable("backtestId") Long backtestId){
+    public ResponseEntity<StockResponseDto> getInvestmentSectors(@PathVariable("backtestId") Long backtestId){
         StockResponseDto resultDto = stockService.getInvestmentSectors(backtestId);
 
         return ResponseEntity.ok(resultDto);
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping
     @Operation(summary = "내 백테스트 전략들 조회 API",description = "")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200",description = "OK, 성공"),
@@ -100,7 +100,7 @@ public class BackTestController {
 
     })
     @Authenticated
-    public ResponseEntity<List<BackTestResponseDto>> getMyBacktests(@PathVariable("userId") Long userId){
+    public ResponseEntity<List<BackTestResponseDto>> getMyBacktests(@AuthenticationPrincipal @PathVariable("userId") Long userId){
 
         List<BackTestResponseDto> resultDto = backTestService.getMyBacktests(userId);
 
@@ -125,4 +125,15 @@ public class BackTestController {
         return ResponseEntity.ok(resultDto);
     }
 
+
+    @DeleteMapping("/{backtestId}")
+    @Operation(summary = "백테스트 삭제하기 API",description = "백테스팅 삭제하기")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200",description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "BACKTEST400", description = "백테스트 이름이 중복되었습니다.",content = @Content(schema = @Schema(implementation = EntityResponse.class))),
+    })
+    @Authenticated
+    public ResponseEntity<BackTestResponseDto> deleteBackTest(@AuthenticationPrincipal Long userId, @PathVariable("backtestId") Long backtestId) {
+        return ResponseEntity.ok(backTestService.deleteBacktest(userId, backtestId));
+    }
 }

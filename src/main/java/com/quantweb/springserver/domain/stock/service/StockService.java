@@ -1,5 +1,7 @@
 package com.quantweb.springserver.domain.stock.service;
 
+import com.quantweb.springserver.common.exception.CustomException;
+import com.quantweb.springserver.common.exception.ErrorCode;
 import com.quantweb.springserver.domain.back_test.DTO.response.StrategyInfoDto;
 import com.quantweb.springserver.domain.back_test.entity.BackTest;
 import com.quantweb.springserver.domain.investment_sectors_pie_chart.entity.InvestmentSectorsPieChart;
@@ -21,6 +23,7 @@ public class StockService {
   private final StockRepository stockRepository;
   private final PieChartRepository pieChartRepository;
 
+  @Transactional
   public void saveStock(List<StrategyInfoDto.Stock> stocks, BackTest backTest) {
 
     stocks.forEach(
@@ -34,12 +37,12 @@ public class StockService {
     List<Stock> stocks =
         stockRepository
             .findAllByBackTestId(backtestId)
-            .orElseThrow(() -> new RuntimeException("백테스트가 존재하지 않습니다."));
+            .orElseThrow(() -> new CustomException(ErrorCode.BACKTEST_NOT_FOUND));
 
     List<InvestmentSectorsPieChart> investmentSectorsPieCharts =
         pieChartRepository
             .findAllByBackTestId(backtestId)
-            .orElseThrow(() -> new RuntimeException("백테스트가 존재하지 않습니다."));
+            .orElseThrow(() -> new CustomException(ErrorCode.BACKTEST_NOT_FOUND));
 
     return StockConverter.toStockResponseDto(stocks, investmentSectorsPieCharts);
   }
