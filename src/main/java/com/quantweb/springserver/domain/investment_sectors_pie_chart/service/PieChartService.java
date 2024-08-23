@@ -17,6 +17,7 @@ public class PieChartService {
 
     private final PieChartRepository pieChartRepository;
 
+    @Transactional
     public void savePieChart(ArrayList<StrategyInfoDto.InvestmentSectorsPieChartItem> investmentSectorsPieChart, BackTest backTest){
 
         investmentSectorsPieChart.forEach(

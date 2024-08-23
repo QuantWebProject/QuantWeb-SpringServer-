@@ -2,6 +2,7 @@ package com.quantweb.springserver.domain.back_test.converter;
 
 
 import com.quantweb.springserver.domain.back_test.DTO.request.BackTestInput;
+import com.quantweb.springserver.domain.back_test.DTO.request.BackTestRequestDto;
 import com.quantweb.springserver.domain.back_test.DTO.response.BackTestDetailsDto;
 import com.quantweb.springserver.domain.back_test.DTO.response.BackTestResponseDto;
 import com.quantweb.springserver.domain.back_test.DTO.response.InvestmentResultDto;
@@ -22,24 +23,24 @@ import java.util.stream.Collectors;
 
 public class BackTestConverter {
 
-    public static BackTest toBackTest(User user, BackTestInput backTestInput, InvestmentResultDto responseDto){
+    public static BackTest toBackTest(User user, BackTestRequestDto.BackTestSaveDto responseDto){
 
         return BackTest.builder()
                 .user(user)
-                .name(backTestInput.getName())
-                .stockNum(backTestInput.getStrategy_setup().getStock_selection())
-                .initInvestmentFund(responseDto.getInitial_amount())
-                .fees(backTestInput.getStrategy_setup().getFee())
-                .rebalancePeriod(backTestInput.getStrategy_setup().getRebalancing_period())
-                .investStartDate(LocalDate.parse(responseDto.getPeriod().getStart_date()))
-                .investEndDate(LocalDate.parse(responseDto.getPeriod().getEnd_date()))
-                .yearlyAverageProfit(responseDto.getAnnualized_return())
-                .realizedProfit(responseDto.getRealized_profit())
-                .unrealized_profit(responseDto.getUnrealized_profit())
-                .finalAsset(responseDto.getFinal_asset())
+                .name(responseDto.getBackTestInfo().getName())
+                .stockNum(responseDto.getBackTestInfo().getStockNum())
+                .initInvestmentFund(responseDto.getInvestment_result().getInitial_amount())
+                .fees(responseDto.getBackTestInfo().getFees())
+                .rebalancePeriod(responseDto.getStrategy_info().getRebalancing_period())
+                .investStartDate(LocalDate.parse(responseDto.getInvestment_result().getPeriod().getStart_date()))
+                .investEndDate(LocalDate.parse(responseDto.getInvestment_result().getPeriod().getEnd_date()))
+                .yearlyAverageProfit(responseDto.getInvestment_result().getAnnualized_return())
+                .realizedProfit(responseDto.getInvestment_result().getRealized_profit())
+                .unrealized_profit(responseDto.getInvestment_result().getUnrealized_profit())
+                .finalAsset(responseDto.getInvestment_result().getFinal_asset())
                 .marketShared(false)
                 .deletedAt(null)
-                .technicalStrategy(TechnicalStrategy.valueOf(backTestInput.getStrategy_setup().getStrategy_name()))
+                .technicalStrategy(TechnicalStrategy.valueOf(responseDto.getStrategy_info().getStrategy_used()))
                 .build();
     }
 
@@ -108,10 +109,10 @@ public class BackTestConverter {
                 .build();
     }
 
-    public static List<BackTestResponseDto> toBackTestList(List<BackTest> backTests){
+    public static List<BackTestResponseDto.BackTestSaveDto> toBackTestList(List<BackTest> backTests){
 
         return backTests.stream()
-                .map(bt -> new BackTestResponseDto(bt.getId(), bt.getName()))
+                .map(bt -> new BackTestResponseDto.BackTestSaveDto(bt.getId(), bt.getName()))
                 .toList();
     }
 }
