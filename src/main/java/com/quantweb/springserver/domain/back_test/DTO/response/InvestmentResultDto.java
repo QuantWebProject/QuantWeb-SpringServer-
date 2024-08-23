@@ -95,6 +95,10 @@ public class InvestmentResultDto {
 			private String action;
 			private Long amount;
 			private String ticker;
+			private Float realized_profit;
+			private Float profit;
+			private Float fee;
+			private Float total_amount;
 		}
 
 }

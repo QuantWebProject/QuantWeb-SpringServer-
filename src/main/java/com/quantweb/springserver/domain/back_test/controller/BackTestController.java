@@ -99,8 +99,8 @@ public class BackTestController {
 
     })
     @Authenticated
-
     public ResponseEntity<StockResponseDto> getInvestmentSectors(@PathVariable("backtestId") Long backtestId){
+
         StockResponseDto resultDto = stockService.getInvestmentSectors(backtestId);
 
         return ResponseEntity.ok(resultDto);
@@ -131,13 +131,14 @@ public class BackTestController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "BACKTEST404", description = "백테스트가 존재하지 않습니다.",content = @Content(schema = @Schema(implementation = EntityResponse.class))),
     })
     @Parameters({
-            @Parameter(name = "backtestId", description = "조회할 백테스트 Id"),
+            @Parameter(name = "backtestId", description = "조회할 매매내역의 백테스트 Id"),
 
     })
     @Authenticated
-    public ResponseEntity<TransactionHistoryResponseDto> getTrasactionHistory(@PathVariable("backtestId") Long backtestId){
+    public ResponseEntity<TransactionHistoryResponseDto> getTrasactionHistory(@AuthenticationPrincipal @PathVariable("userId") Long userId,
+                                                                              @PathVariable("backtestId") Long backtestId){
 
-        TransactionHistoryResponseDto resultDto = transactionHistoryService.getTransactionHistory(backtestId);
+        TransactionHistoryResponseDto resultDto = transactionHistoryService.getTransactionHistory(userId, backtestId);
 
         return ResponseEntity.ok(resultDto);
     }

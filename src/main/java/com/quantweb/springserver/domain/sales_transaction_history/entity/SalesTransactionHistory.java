@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springdoc.webmvc.core.fn.SpringdocRouteBuilder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -42,6 +43,14 @@ public class SalesTransactionHistory extends BaseTimeEntity {
     private Long quantity;
 
     private String ticker;
+
+    private Float price;
+
+    private Float fees;
+
+    private Float profit;
+
+    private Float realizedProfit;
 
     @Enumerated(EnumType.STRING)
     private TransactionType type;

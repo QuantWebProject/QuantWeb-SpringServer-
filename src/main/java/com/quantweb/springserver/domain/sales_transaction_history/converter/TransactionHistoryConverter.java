@@ -21,24 +21,40 @@ public class TransactionHistoryConverter {
                 .type(TransactionType.valueOf(transactionHistory.getAction()))
                 .backTest(backTest)
                 .investmentSimulation(null)
+                .price(transactionHistory.getTotal_amount())
+                .fees(transactionHistory.getFee())
+                .profit(transactionHistory.getProfit())
+                .realizedProfit(transactionHistory.getRealized_profit())
                 .build();
     }
 
-    public static TransactionHistoryResponseDto.TransactionHistory toTransactionHistoryResult(SalesTransactionHistory transactionHistories){
+    public static TransactionHistoryResponseDto.TransactionHistory toBuyTransactionHistory(SalesTransactionHistory transactionHistories){
 
         return TransactionHistoryResponseDto.TransactionHistory.builder()
-//                .transactionDate(transactionHistories.getDateTime())
-//                .stockName(transactionHistories.getTicker())
-//                .period()
-//                .realizedProfit()
-//                .profitPercentage()
-//                .buyQuantity()
-//                .buyPrice()
-//                .sellQuantity()
-//                .sellPrice()
-//                .status()
-//                .fee()
-//                .transactionHistoryGraph()
+                .transactionDate(transactionHistories.getDateTime())
+                .stockName(transactionHistories.getTicker())
+                .realizedProfit(transactionHistories.getRealizedProfit())
+                .profit(transactionHistories.getProfit())
+                .buyQuantity(Float.valueOf(transactionHistories.getQuantity()))
+                .buyPrice((long) Float.floatToIntBits(transactionHistories.getPrice()))
+                .sellQuantity(null)
+                .sellPrice(null)
+                .fee(transactionHistories.getFees())
+                .build();
+    }
+
+    public static TransactionHistoryResponseDto.TransactionHistory toSellTransactionHistory(SalesTransactionHistory transactionHistories){
+
+        return TransactionHistoryResponseDto.TransactionHistory.builder()
+                .transactionDate(transactionHistories.getDateTime())
+                .stockName(transactionHistories.getTicker())
+                .realizedProfit(transactionHistories.getRealizedProfit())
+                .profit(transactionHistories.getProfit())
+                .buyQuantity(null)
+                .buyPrice(null)
+                .sellQuantity(Float.valueOf(transactionHistories.getQuantity()))
+                .sellPrice((long) Float.floatToIntBits(transactionHistories.getPrice()))
+                .fee(transactionHistories.getFees())
                 .build();
     }
 
@@ -54,12 +70,23 @@ public class TransactionHistoryConverter {
 
     public static TransactionHistoryResponseDto toTransactionHistoryResultDto(List<SalesTransactionHistory> transactionHistories){
 
+        List<TransactionHistoryResponseDto.TransactionHistory> histories = transactionHistories.stream()
+                .map(th->{
+                    if (th.getType().equals(TransactionType.buy)){
+                        return TransactionHistoryConverter.toBuyTransactionHistory(th);
+                    } else {
+                        return TransactionHistoryConverter.toSellTransactionHistory(th);
+                    }
+                })
+                .collect(Collectors.toList());
+
+
         List<TransactionHistoryResponseDto.TransactionHistoryGraph> graphs = transactionHistories.stream()
                 .map(TransactionHistoryConverter::toTransactionHistoryGraph)
                 .toList();
 
         return TransactionHistoryResponseDto.builder()
-                //.transactionHistories()
+                .transactionHistories(histories)
                 .transactionHistoryGraph(graphs)
                 .build();
     }

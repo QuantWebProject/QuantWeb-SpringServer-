@@ -20,8 +20,6 @@ public class BackTestInput {
 
 	@Data
 	public static class StrategySetup {
-		@SerializedName("strategy_name")
-		private String strategy_name;
 
 		@SerializedName("stock_selection")
 		private Integer stock_selection;
@@ -70,6 +68,9 @@ public class BackTestInput {
 		@SerializedName("tactical_asset_allocation")
 		private TacticalAssetAllocation tactical_asset_allocation;
 
+		@SerializedName("longshort_strategey")
+		private LongShortStrategy longshort_strategey;
+
 		@SerializedName("macd")
 		private MACD macd;
 
@@ -95,6 +96,12 @@ public class BackTestInput {
 		}
 
 		@Data
+		public static class LongShortStrategy{
+			private Integer sma_period_long;
+			private Integer sma_period_short;
+		}
+
+		@Data
 		public static class MACD {
 			private Integer fastperiods;
 			private Integer slowperiods;
@@ -107,14 +114,12 @@ public class BackTestInput {
 
 		@Data
 		public static class RSI {
-			private Integer high_rsi;
-			private Integer low_rsi;
+			private Integer period;
 		}
 		@Data
 		public static class BollingerBand {
 			private Integer timeperiod_input;
 			private Integer nbdevup_input;
-			private Integer nbdevdn_input;
 		}
 	}
 

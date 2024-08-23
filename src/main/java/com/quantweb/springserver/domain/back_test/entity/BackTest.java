@@ -63,6 +63,8 @@ public class BackTest extends BaseTimeEntity {
 
     private LocalDateTime deletedAt;
 
+    private Float profit;
+
     @Enumerated(EnumType.STRING)
     private TechnicalStrategy technicalStrategy;
 

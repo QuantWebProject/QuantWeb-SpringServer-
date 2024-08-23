@@ -24,12 +24,15 @@ import java.util.stream.Collectors;
 public class BackTestConverter {
 
     public static BackTest toBackTest(User user, BackTestRequestDto.BackTestSaveDto responseDto){
+        Long initAsset = responseDto.getInvestment_result().getInitial_amount();
+        Long finalAsset = responseDto.getInvestment_result().getFinal_asset();
+        Float profit = (float) finalAsset / initAsset * 100;
 
         return BackTest.builder()
                 .user(user)
                 .name(responseDto.getBackTestInfo().getName())
                 .stockNum(responseDto.getBackTestInfo().getStockNum())
-                .initInvestmentFund(responseDto.getInvestment_result().getInitial_amount())
+                .initInvestmentFund(initAsset)
                 .fees(responseDto.getBackTestInfo().getFees())
                 .rebalancePeriod(responseDto.getStrategy_info().getRebalancing_period())
                 .investStartDate(LocalDate.parse(responseDto.getInvestment_result().getPeriod().getStart_date()))
@@ -37,10 +40,11 @@ public class BackTestConverter {
                 .yearlyAverageProfit(responseDto.getInvestment_result().getAnnualized_return())
                 .realizedProfit(responseDto.getInvestment_result().getRealized_profit())
                 .unrealized_profit(responseDto.getInvestment_result().getUnrealized_profit())
-                .finalAsset(responseDto.getInvestment_result().getFinal_asset())
+                .finalAsset(finalAsset)
                 .marketShared(false)
                 .deletedAt(null)
                 .technicalStrategy(TechnicalStrategy.valueOf(responseDto.getStrategy_info().getStrategy_used()))
+                .profit(profit)
                 .build();
     }
 
