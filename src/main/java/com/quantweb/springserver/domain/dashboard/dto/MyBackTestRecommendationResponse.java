@@ -9,16 +9,15 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class MyBackTestResponse {
+public class MyBackTestRecommendationResponse {
     private Long backTestId;
     private String name;
     private LocalDate startedDate;
     private LocalDate endDate;
     private LocalDateTime createdAt;
     private Float yearlyProfit;
-    private List<InvestmentSectorsPieChart> pieCharts;
     private Float mdd;
-    private Long initInvestmentFund;
     private Long unrealizedProfit;
     private Boolean marketShared;
+    private Integer subscribeNum;
 }
