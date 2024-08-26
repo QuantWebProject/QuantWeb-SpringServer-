@@ -2,6 +2,7 @@ package com.quantweb.springserver.domain.dashboard.dto;
 
 import com.quantweb.springserver.domain.market.entity.Market;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Builder;
@@ -10,10 +11,10 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class MarketMyResponse {
+public class BackTestSubscribeResponse {
     private List<MarketResponse> marketResponses;
 
-    public MarketMyResponse(List<Market> marketList){
+    public BackTestSubscribeResponse(List<Market> marketList){
         this.marketResponses = marketList.stream().map(
                 market -> MarketResponse.builder()
                         .marketId(market.getId())
@@ -24,24 +25,27 @@ public class MarketMyResponse {
                         .yearlyProfit(market.getBackTest().getYearlyAverageProfit())
                         .unrealizedProfit(market.getBackTest().getUnrealized_profit())
                         .mdd(market.getBackTest().getGraph().getMdds().stream().map(mdd -> mdd.getMdd())
-                                .min(Float::compareTo).get())
+                                .max(Float::compareTo).get())
                         .subscribeNum(market.getSubscribeNum())
+                        .popularity(market.getMarketLikes().size())
+                        .createdAt(market.getCreatedAt())
                         .build()
         ).collect(Collectors.toList());
-
     }
 
     @Getter
     @Builder
-    private static class MarketResponse {
+    public static class MarketResponse {
         private Long marketId;
         private String name;
         private LocalDate startedDate;
         private LocalDate endDate;
+        private LocalDateTime createdAt;
         private Float yearlyProfit;
         private Float mdd;
         private Long initInvestmentFund;
         private Long unrealizedProfit;
         private Integer subscribeNum;
+        private Integer popularity;
     }
 }

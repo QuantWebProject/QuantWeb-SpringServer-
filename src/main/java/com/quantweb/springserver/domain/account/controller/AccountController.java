@@ -23,7 +23,7 @@ public class AccountController {
   private final AccountService accountService;
 
   @Authenticated
-  @GetMapping("/sync/mock-account")
+  @GetMapping("/mock-account")
   public ResponseEntity<AccountResponse> getKoreaInvestmentMockAccount(
       @AuthenticationPrincipal Long userId) {
     AccountResponse accountResponse = accountService.getKoreaInvestmentMockAccount(userId);
@@ -32,7 +32,7 @@ public class AccountController {
   }
 
   @Authenticated
-  @PostMapping("/sync/mock-account")
+  @PostMapping("/mock-account")
   public ResponseEntity<Void> syncKoreaInvestmentMockAccount(
       @AuthenticationPrincipal Long userId,
       @RequestBody KoreaInvestmentMockAccountRequest request) {
@@ -42,7 +42,7 @@ public class AccountController {
   }
 
   @Authenticated
-  @PutMapping("/sync/mock-account")
+  @PutMapping("/mock-account")
   public ResponseEntity<Void> updateKoreaInvestmentMockAccount(
       @AuthenticationPrincipal Long userId,
       @RequestBody KoreaInvestmentMockAccountRequest request) {
@@ -52,7 +52,7 @@ public class AccountController {
   }
 
   @Authenticated
-  @DeleteMapping("/sync/mock-account")
+  @DeleteMapping("/mock-account")
   public ResponseEntity<Void> deleteKoreaInvestmentMockAccount(
       @AuthenticationPrincipal Long userId) {
     accountService.deleteKoreaInvestmentMockAccount(userId);

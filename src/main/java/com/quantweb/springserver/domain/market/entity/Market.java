@@ -58,5 +58,4 @@ public class Market extends BaseTimeEntity {
             this.subscribeNum--;
         }
     }
-
 }

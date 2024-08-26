@@ -31,4 +31,8 @@ public interface MarketRepository extends JpaRepository<Market, Long> {
 
     @Query("SELECT m FROM Market m WHERE m.backTest.user.id = :userId")
     List<Market> findAllBackTestByUserId(Long userId);
+
+    Market findByBackTestId(Long backTestId);
+
+    boolean existsByBackTestId(Long backTestId);
 }
